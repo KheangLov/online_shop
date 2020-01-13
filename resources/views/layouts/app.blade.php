@@ -34,56 +34,6 @@
 </head>
 <body>
     <div id="app">
-        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('admin_dashboard') }}">{{ __('Admin Panel') }}</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav> --}}
-
         <!-- Body main wrapper start -->
         <div class="wrapper fixed__footer">
             <!-- Start Header Style -->
@@ -184,8 +134,8 @@
                                                     <li><a href="blog-details.html">Blog details</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">pages</a>
-                                                <ul>
+                                            <li class="drop"><a href="#">pages</a>
+                                                <ul class="dropdown">
                                                     <li><a href="about.html">about</a></li>
                                                     <li><a href="customer-review.html">customer review</a></li>
                                                     <li><a href="shop.html">shop</a></li>
@@ -205,9 +155,34 @@
                             </div>
                             <!-- End MAinmenu Ares -->
                             <div class="col-md-2 col-sm-4 col-xs-3">
-                                <ul class="menu-extra">
+                                <ul class="main__menu menu-extra">
                                     <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
-                                    <li><a href="{{ route('login_register') }}"><span class="ti-user"></span></a></li>
+                                    @guest
+                                        <li>
+                                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        </li>
+                                        @if (Route::has('register'))
+                                            <li>
+                                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                            </li>
+                                        @endif
+                                    @else
+                                        <li class="drop"><a href="#">{{ Auth::user()->name }}</a>
+                                            <ul class="dropdown">
+                                                <li style="padding: 0;">
+                                                    <a href="{{ route('admin_dashboard') }}">{{ __('Admin Panel') }}</a>
+                                                </li>
+                                                <li style="padding: 0;">
+                                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                        {{ __('Logout') }}
+                                                    </a>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    @endguest
                                     <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
                                     <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
                                 </ul>
@@ -352,9 +327,7 @@
                 <!-- End Cart Panel -->
             </div>
             <!-- End Offset Wrapper -->
-            <main class="py-4">
-                @yield('content')
-            </main>
+            @yield('content')
             <!-- Start Footer Area -->
             <footer class="htc__foooter__area gray-bg">
                 <div class="container">

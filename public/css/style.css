@@ -7,7 +7,7 @@
 
 
 -----------------------------------------------------------------------------------
-  
+
   CSS INDEX
   ===================
 
@@ -1881,13 +1881,13 @@ product__style--7
 .team__thumb a img {
     -webkit-filter: grayscale(100%);
     /* Safari 6.0 - 9.0 */
-    
+
     filter: grayscale(100%);
 }
 .team:hover .team__thumb a img {
     -webkit-filter: grayscale(0%);
     /* Safari 6.0 - 9.0 */
-    
+
     filter: grayscale(00%);
 }
 .htc__team__page .team {
@@ -3981,7 +3981,7 @@ a.shipping-calculator-button:hover {
     transform: scale(1.5);
     opacity: 0;
     z-index: 99;
-    
+
 }
 .portfolio-icon a i {
     line-height: 50px;
@@ -4299,6 +4299,40 @@ a.shipping-calculator-button:hover {
     color: #f8cd35;
 }
 
+.btn-login-custom {
+    background-color: transparent;
+    border: 1px solid #d5d5d5;
+    padding: 0;
+    border-radius: 0;
+    display: inline-block;
+    font-size: 20px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    transition: all 0.5s ease 0s;
+    color: #4b4b4b;
+    text-transform: uppercase;
+}
+
+.btn-login-custom:hover,
+.btn-login-custom:focus {
+    background-color: #ff4136;
+    border-color: #ff4136;
+}
+
+.login input + input {
+    margin-top: 0;
+}
+
+.login .form-check {
+    padding: 6px 12px 6px 0;
+}
+
+.login .input-remember-me {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+}
 
 
 

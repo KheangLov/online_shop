@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Post;
 
 class HomeController extends Controller
 {
@@ -23,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('subCategories')->get();
+        $categories = Category::with(['subCategories', 'posts'])->get();
         return view('home', ['categories' => $categories]);
     }
 }

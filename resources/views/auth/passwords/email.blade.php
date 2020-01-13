@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <ul class="login__register__menu">
-                    <li class="login active"><a href="{{ route('login') }}">{{ __('Reset Password') }}</a></li>
+                    <li class="login active"><a href="{{ route('password.request') }}">{{ __('Reset Password') }}</a></li>
                 </ul>
             </div>
         </div>

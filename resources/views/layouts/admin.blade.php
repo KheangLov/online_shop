@@ -103,7 +103,7 @@
                         <li class="nav-item dropdown custom-dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="overlay-profile">
-                                    <div class="profile" style="background-image: url('{{ asset(Auth::user()->profile) }}');"></div>
+                                    <div class="profile" style="background-image: url('{{ asset(Auth::user()->profile ? Auth::user()->profile : 'images/avatar_profile_user_music_headphones_shirt_cool-512.png') }}');"></div>
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right custom-dropdown-menu" aria-labelledby="userDropDown">
@@ -148,6 +148,7 @@
             @yield('content')
         </div>
     </div>
+    <script src="{{ asset('js/vendor/jquery-1.12.0.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/script.js') }}"></script>
 </body>

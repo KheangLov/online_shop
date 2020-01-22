@@ -8,6 +8,18 @@
     <div class="card-body">
         <form method="POST" action="{{ route('user_create') }}" enctype="multipart/form-data">
             @csrf
+            <div class="profile-upload text-center mb-4">
+                <div class="profile-overlay">
+                    <div class="profile-pic" id="profile_bg_image" style="background-image: url('{{ asset('images/avatar_profile_user_music_headphones_shirt_cool-512.png') }}');"></div>
+                    <button type="button" class="btn btn-primary btn-profile-upload" id="btn_profile_edit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user w-4 h-4">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </button>
+                    <input type="file" name="profile" id="profile_edit" class="d-none">
+                </div>
+            </div>
             <div class="row justify-content-center">
                 <div class="form-group col-md-7">
                     <label for="name">{{ __('Name') }}</label>
@@ -68,10 +80,6 @@
                             <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
                         @endforeach
                     </select>
-                </div>
-                <div class="form-group col-md-7">
-                    <label for="profile">{{ __('Profile') }}</label>
-                    <input type="file" name="profile" class="form-control" id="profile">
                 </div>
                 <div class="form-group col-md-7">
                     <button type="submit" class="btn btn-primary btn-reg">

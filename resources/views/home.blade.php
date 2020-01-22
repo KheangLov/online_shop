@@ -94,7 +94,6 @@
         </div>
     </div>
 </div>
-{{ $categories }}
 @foreach ($categories as $cate)
     <section class="htc__product__area bg__white pt--50 pb--50">
         <div class="container">

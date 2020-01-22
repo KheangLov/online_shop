@@ -20,7 +20,7 @@
                         @csrf
                         <div class="profile-upload text-center mb-4">
                             <div class="profile-overlay">
-                                <div class="profile-pic" style="background-image: url('{{ asset($category->image) }}');"></div>
+                                <div class="profile-pic" id="profile_bg_image" style="background-image: url('{{ asset($category->image) }}');"></div>
                                 <button type="button" class="btn btn-primary btn-profile-upload" id="btn_profile_edit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user w-4 h-4">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -42,15 +42,30 @@
                             <button type="submit" class="btn btn-primary btn-reg">
                                 {{ __('Update') }}
                             </button>
+                            <a href="{{ route('category.index') }}" class="btn btn-reg" style="background-color: #ff2211; color: #fff; border-color: #ff2211">
+                                {{ __('Cancel') }}
+                            </a>
                         </div>
                     </form>
                 @else
                     <form method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group">
+                        <div class="profile-upload text-center mb-4">
+                            <div class="profile-overlay">
+                                <div class="profile-pic" id="profile_bg_image" style="background-image: url('{{ asset('images/no-image.png') }}');"></div>
+                                <button type="button" class="btn btn-primary btn-profile-upload" id="btn_profile_edit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user w-4 h-4">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </button>
+                                <input type="file" name="image" id="profile_edit" class="d-none">
+                            </div>
+                        </div>
+                        {{-- <div class="form-group">
                             <label for="image">{{ __('Image') }}</label>
                             <input type="file" name="image" class="form-control" id="image">
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="name">{{ __('Name') }}</label>
                             <input id="name" type="text" class="form-control" name="name" required>

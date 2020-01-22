@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
+@if ($message = Session::get('warning'))
+<div class="alert alert-warning" role="alert">
+    {{ $message }}
+</div>
+@endif
 <div class="card card-custom bg-color text-center">
     <div class="card-header">
         <span class="icon-congrate">

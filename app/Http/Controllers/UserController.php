@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function __construct()
 	{
-		$this->middleware(['auth', 'verified']);
+        $this->middleware(['auth', 'verified']);
     }
 
     public function index()
@@ -28,13 +28,8 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => ['required'],
-        ]), function($data) {
-            if ($data['profile']) {
-                Validator::make($data, [
-                    'profile' => ['file', 'image', 'max:5120']
-                ]);
-            }
-        });
+            'profile' => ['file', 'image', 'max:30720']
+        ]));
     }
 
     public function add()

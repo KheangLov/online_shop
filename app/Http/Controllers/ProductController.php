@@ -68,7 +68,13 @@ class ProductController extends Controller
             'Preah Vihear',
             'Tbong Khmum'
         ];
-        return view('admin.product.add', ['categories' => $categories, 'subCategories' => $subCategories, 'provinces' => $provinces]);
+        $conditions = ['medium', 'old', 'new'];
+        return view('admin.product.add', [
+            'categories' => $categories,
+            'subCategories' => $subCategories,
+            'provinces' => $provinces,
+            'conditions' => $conditions
+        ]);
     }
 
     public function create(Request $request)

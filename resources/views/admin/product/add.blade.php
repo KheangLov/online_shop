@@ -45,16 +45,16 @@
                         <div class="form-group col-md-12">
                             <label for="condition">{{ __('Condition') }}</label>
                             <select id="condition" class="form-control" name="condition" id="exampleFormControlSelect1">
-                                <option value="new">New</option>
-                                <option value="old">Old</option>
-                                <option value="medium">Medium</option>
+                                @foreach ($conditions as $condition)
+                                    <option value="{{ strtolower($condition) }}">{{ ucfirst($condition) }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="location">{{ __('Location') }}</label>
                             <select id="location" class="form-control" name="location" id="exampleFormControlSelect1">
                                 @foreach ($provinces as $province)
-                                    <option value="phnom penh">{{ $province }}</option>
+                                    <option value="{{ strtolower($province) }}">{{ ucfirst($province) }}</option>
                                 @endforeach
                             </select>
                         </div>

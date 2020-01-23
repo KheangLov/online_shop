@@ -54,29 +54,31 @@
                     <div class="category-menu-list">
                         <ul>
                             @foreach ($categories as $cate)
-                                <li>
-                                    <a href="#">
-                                        <img alt="" src="{{ asset($cate->image) }}">
-                                        {{ ucfirst($cate->name) }}
+                                @if (strtolower($cate) !== 'uncategorized')
+                                    <li>
+                                        <a href="#">
+                                            <img alt="" src="{{ asset($cate->image) }}">
+                                            {{ ucfirst($cate->name) }}
+                                            @if (count($cate->subCategories) > 0)
+                                                <i class="zmdi zmdi-chevron-right"></i>
+                                            @endif
+                                        </a>
                                         @if (count($cate->subCategories) > 0)
-                                            <i class="zmdi zmdi-chevron-right"></i>
-                                        @endif
-                                    </a>
-                                    @if (count($cate->subCategories) > 0)
-                                        <div class="category-menu-dropdown" style="width: 250px;">
-                                            <div class="category-menu-dropdown-top">
-                                                <div class="category-part-1 category-common2" style="width: 100%; padding: 0;">
-                                                    <h4 class="categories-subtitle"> {{ ucfirst($cate->name) }}</h4>
-                                                    <ul>
-                                                        @foreach ($cate->subCategories as $sub_cate)
-                                                            <li><a href="#"> {{ ucfirst($sub_cate->name) }}</a></li>
-                                                        @endforeach
-                                                    </ul>
+                                            <div class="category-menu-dropdown" style="width: 250px;">
+                                                <div class="category-menu-dropdown-top">
+                                                    <div class="category-part-1 category-common2" style="width: 100%; padding: 0;">
+                                                        <h4 class="categories-subtitle"> {{ ucfirst($cate->name) }}</h4>
+                                                        <ul>
+                                                            @foreach ($cate->subCategories as $sub_cate)
+                                                                <li><a href="#"> {{ ucfirst($sub_cate->name) }}</a></li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endif
-                                </li>
+                                        @endif
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>

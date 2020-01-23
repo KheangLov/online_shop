@@ -16,5 +16,13 @@ class DatabaseSeeder extends Seeder
             ['name' => 'editor'],
             ['name' => 'user']
         ]);
+
+        DB::table('categories')->insert([
+            ['name' => 'uncategorized', 'image' => 'images/no-image.png']
+        ]);
+
+        DB::table('sub_categories')->insert([
+            ['name' => 'uncategorized', 'category_id' => 1]
+        ]);
     }
 }

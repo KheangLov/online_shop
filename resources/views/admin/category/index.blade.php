@@ -62,10 +62,6 @@
                                 <input type="file" name="image" id="profile_edit" class="d-none">
                             </div>
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="image">{{ __('Image') }}</label>
-                            <input type="file" name="image" class="form-control" id="image">
-                        </div> --}}
                         <div class="form-group">
                             <label for="name">{{ __('Name') }}</label>
                             <input id="name" type="text" class="form-control" name="name" required>

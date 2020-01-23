@@ -34,8 +34,13 @@ class Post extends Model
         return $this->belongsTo('App\SubCategory');
     }
 
-    public function posts()
+    public function images()
     {
         return $this->hasMany('App\Image');
+    }
+
+    public function productVariants()
+    {
+        return $this->hasMany('App\ProductVariant');
     }
 }

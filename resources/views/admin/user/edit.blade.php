@@ -37,7 +37,7 @@
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
                             </button>
-                            <input type="file" name="profile" id="profile_edit" class="d-none">
+                            <input type="file" name="profile" id="profile_edit" class="d-none" value="{{ $user->profile }}">
                         </div>
                     </div>
                     <div class="row justify-content-center">

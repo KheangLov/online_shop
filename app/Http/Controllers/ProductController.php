@@ -41,7 +41,34 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $subCategories = SubCategory::all();
-        return view('admin.product.add', ['categories' => $categories, 'subCategories' => $subCategories]);
+        $provinces = [
+            'Phnom Penh',
+            'Banteay Meanchey',
+            'Battambang',
+            'Kampong Cham',
+            'Kampong Chhnang',
+            'Kampong Speu',
+            'Kampot',
+            'Kandal',
+            'Kep',
+            'Koh Kong',
+            'Kratie',
+            'Mondulkiri',
+            'Oddor Meanchey',
+            'Pailin',
+            'Prey Veng',
+            'Pursat',
+            'Rattanakiri',
+            'Siem Reap',
+            'Sihanouk ville',
+            'Stung Treng',
+            'Svay Rieng',
+            'Takeo',
+            'Kampong Thom',
+            'Preah Vihear',
+            'Tbong Khmum'
+        ];
+        return view('admin.product.add', ['categories' => $categories, 'subCategories' => $subCategories, 'provinces' => $provinces]);
     }
 
     public function create(Request $request)

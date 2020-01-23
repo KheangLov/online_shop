@@ -66,18 +66,18 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        if (isset($request->profile)) {
-            $imageName = time() . '.' . $request->profile->extension();
-            $request->profile->move(public_path('images'), $imageName);
-            $img = 'images/' . $imageName;
-        }
         $user = User::find($id);
         $roles = Role::all()->sortBy("name");
 		$user->name = $request->name;
 		$user->email = $request->email;
         $user->phone = $request->phone;
         $user->status = $request->status;
-        $user->profile = $img;
+        if (isset($request->profile)) {
+            $imageName = time() . '.' . $request->profile->extension();
+            $request->profile->move(public_path('images'), $imageName);
+            $img = 'images/' . $imageName;
+            $user->profile = $img;
+        }
 		$user->role_id = $request->role;
 		$user->save();
 		$user->update();

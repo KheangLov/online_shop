@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<a href="{{ route('product_add') }}" class="btn btn-primary btn-lg btn-add mb-5">Add Product</a>
+<a href="{{ route('product_add') }}" class="btn btn-lg btn-secondary mb-5">Add Product</a>
 <div class="card card-custom bg-color">
     <div class="card-header d-flex bd-highlight">
         <h2 class="p-2 w-100 bd-highlight">Product List</h2>

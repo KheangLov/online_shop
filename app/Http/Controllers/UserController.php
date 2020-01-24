@@ -21,6 +21,13 @@ class UserController extends Controller
         return view('admin.user.index', ['users' => $users]);
     }
 
+    public function detail($id)
+    {
+        $user = User::find($id);
+        $roles = Role::all();
+        return view('admin.user.detail', ['user' => $user, 'roles' => $roles]);
+    }
+
     protected function validator(array $data)
     {
         return tap(Validator::make($data, [
@@ -40,20 +47,22 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        if (isset($request->profile)) {
-            $imageName = time() . '.' . $request->profile->extension();
-            $request->profile->move(public_path('images'), $imageName);
-            $img = 'images/' . $imageName;
-        }
-        $user = User::create([
+        $data = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => (int)$request->phone,
             'status' => $request->status,
-            'role_id' => (int)$request->role,
-            'profile' => $img
-        ]);
+            'role_id' => (int)$request->role
+        ];
+
+        if (isset($request->profile)) {
+            $imageName = time() . '.' . $request->profile->extension();
+            $request->profile->move(public_path('images'), $imageName);
+            $img = 'images/' . $imageName;
+            $data['profile'] = $img;
+        }
+        $user = User::create($data);
         return redirect()->route('user_list')->with('message', 'User created!');
     }
 

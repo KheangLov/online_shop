@@ -2,9 +2,13 @@
 
 @section('content')
 @if ($message = Session::get('warning'))
-<div class="alert alert-warning" role="alert">
-    {{ $message }}
-</div>
+    <div class="alert alert-warning mb-4 alert-dismissible fade show font-weight-bold" role="alert">
+        <i class="fas fa-exclamation mr-2"></i>
+        {{ $message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 @endif
 <div class="card card-custom bg-color text-center">
     <div class="card-header">

@@ -54,7 +54,7 @@
                     <div class="category-menu-list">
                         <ul>
                             @foreach ($categories as $cate)
-                                @if (strtolower($cate) !== 'uncategorized')
+                                @if (strtolower($cate->name) !== 'uncategorized')
                                     <li>
                                         <a href="#">
                                             <img alt="" src="{{ asset($cate->image) }}">
@@ -101,20 +101,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="product-categories-all">
-                        <div class="product-categories-title">
-                            <h3>{{ $cate->name }}</h3>
-                        </div>
-                        @if (count($cate->subCategories) > 0)
-                            <div class="product-categories-menu">
-                                <ul>
-                                    @foreach ($cate->subCategories as $sub_cate)
-                                        <li><a href="#">{{ $sub_cate->name }}</a></li>
-                                    @endforeach
-                                </ul>
+                    @if ($cate->name !== 'uncategorized')
+                        <div class="product-categories-all">
+                            <div class="product-categories-title">
+                                <h3>{{ $cate->name }}</h3>
                             </div>
-                        @endif
-                    </div>
+                            @if (count($cate->subCategories) > 0)
+                                <div class="product-categories-menu">
+                                    <ul>
+                                        @foreach ($cate->subCategories as $sub_cate)
+                                            <li><a href="#">{{ $sub_cate->name }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
                 </div>
                 <div class="col-md-9">
                     <div class="product-style-tab">

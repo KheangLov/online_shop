@@ -21,13 +21,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin', 'AdminController@index')->name('admin_dashboard');
 
-Route::get('/admin/user', 'UserController@index')->name('user_list');
-Route::get('/admin/user/add', 'UserController@add')->name('user_add');
-Route::post('/admin/user/create', 'UserController@create')->name('user_create');
-Route::get('/admin/user/edit/{id}', 'UserController@edit')->name('user_edit');
-Route::put('/admin/user/update/{id}', 'UserController@update')->name('user_update');
-Route::put('/admin/user/password/{id}', 'UserController@changePassword')->name('user_password');
-Route::get('/admin/user/delete/{id}', 'UserController@delete')->name('user_delete');
+Route::get('/admin/user', 'UserController@index')->name('user_list')->middleware('admin');
+Route::get('/admin/user/detail/{id}', 'UserController@detail')->name('user_detail')->middleware('admin');
+Route::get('/admin/user/add', 'UserController@add')->name('user_add')->middleware('admin');
+Route::post('/admin/user/create', 'UserController@create')->name('user_create')->middleware('admin');
+Route::get('/admin/user/edit/{id}', 'UserController@edit')->name('user_edit')->middleware('admin');
+Route::put('/admin/user/update/{id}', 'UserController@update')->name('user_update')->middleware('admin');
+Route::put('/admin/user/password/{id}', 'UserController@changePassword')->name('user_password')->middleware('admin');
+Route::get('/admin/user/delete/{id}', 'UserController@delete')->name('user_delete')->middleware('admin');
 
 Route::resource('/admin/category', 'CategoryController')->only([
     'index', 'store', 'update'
@@ -46,3 +47,5 @@ Route::post('/admin/product/create', 'ProductController@create')->name('product_
 Route::get('/admin/product/edit/{id}', 'ProductController@edit')->name('product_edit');
 Route::put('/admin/product/update/{id}', 'ProductController@update')->name('product_update');
 Route::get('/admin/product/delete/{id}', 'ProductController@delete')->name('product_delete');
+
+Route::post('/admin/images/upload', 'ImageController@upload')->name('images_upload');

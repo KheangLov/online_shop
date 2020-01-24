@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+require('image-picker');
 
 window.Vue = require('vue');
 

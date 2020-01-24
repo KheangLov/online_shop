@@ -1,6 +1,14 @@
 @extends('layouts.admin')
 
 @section('content')
+@if ($message = Session::get('message'))
+    <div class="toast fade alert alert-success" id="myToast" data-delay="3500" style="position: absolute; top: 1%; right: 2%; z-index: 999;">
+        <div class="toast-body">
+            {{ $message }}
+            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast">&times;</button>
+        </div>
+    </div>
+@endif
 <div class="card card-custom bg-color">
     <div class="card-header d-flex bd-highlight">
         <h2 class="p-2 w-100 bd-highlight">Add Product</h2>
@@ -162,12 +170,52 @@
                     </div>
                 </div>
                 <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <label for="description">{{ __('Images') }}</label>
+                            <button type="button" class="d-block btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">
+                                Open gallery
+                            </button>
 
+                            <div class="modal custom-modal fade bd-example-modal-xl w-100" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl w-100" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" action="{{ route('images_upload') }}" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="file" name="images[]" id="upload_images" class="d-none" multiple>
+                                            <button type="button" id="btn_upload_images" class="btn btn-primary mb-3 font-weight-bold">
+                                                <i class="fas fa-camera mb-2"></i>
+                                                Upload Image
+                                            </button>
+                                            <button type="submit" class="d-none" id="submit_upload">Submit</button>
+                                        </form>
+                                        @if (!empty($images))
+                                            <select id="images-pick" class="image-picker show-html" multiple="multiple" data-limit="10">
+                                                @foreach ($images as $img)
+                                                    <option data-img-src="{{ asset($img->path) }}" data-img-alt="{{ $img->name }}" value="{{ $img->id }}"></option>
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Understood</button>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
-    </div>
-    <div class="card-footer">
     </div>
 </div>
 @endsection

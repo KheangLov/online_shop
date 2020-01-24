@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Image;
 use App\Post;
 use App\SubCategory;
 use Illuminate\Http\Request;
@@ -69,11 +70,13 @@ class ProductController extends Controller
             'Tbong Khmum'
         ];
         $conditions = ['medium', 'old', 'new'];
+        $images = Image::all();
         return view('admin.product.add', [
             'categories' => $categories,
             'subCategories' => $subCategories,
             'provinces' => $provinces,
-            'conditions' => $conditions
+            'conditions' => $conditions,
+            'images' => $images
         ]);
     }
 

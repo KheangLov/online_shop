@@ -1,5 +1,7 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
 
 // Variables
 @import 'variables';
@@ -7,13 +9,156 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+@import '~image-picker/source/sass/image-picker.scss';
+
 html, body {
     height: 100%;
     background-color: $body;
 }
 
+#loading_page {
+    width: 100%;
+    height: 100%;
+    background-color: $card;
+    position: fixed;
+    z-index: 1;
+    margin-top: 0px;
+    top: 0px;
+
+    #loading-center{
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+    #loading-center-absolute {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 50px;
+        width: 50px;
+        margin-top: -25px;
+        margin-left: -25px;
+       -ms-transform: rotate(45deg);
+           -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        -webkit-animation: loading-center-absolute 1.5s infinite;
+        animation: loading-center-absolute 1.5s infinite;
+
+    }
+    .object{
+        width: 25px;
+        height: 25px;
+        background-color: #FFF;
+        float: left;
+
+    }
+
+
+
+
+    #object_one {
+        -webkit-animation: object_one 1.5s infinite;
+        animation: object_one 1.5s infinite;
+        }
+    #object_two {
+        -webkit-animation: object_two 1.5s infinite;
+        animation: object_two 1.5s infinite;
+        }
+    #object_three {
+        -webkit-animation: object_three 1.5s infinite;
+        animation: object_three 1.5s infinite;
+        }
+    #object_four {
+        -webkit-animation: object_four 1.5s infinite;
+        animation: object_four 1.5s infinite;
+        }
+
+
+    @-webkit-keyframes loading-center-absolute {
+      100% { -webkit-transform: rotate(-45deg); }
+
+    }
+
+    @keyframes loading-center-absolute {
+      100% {
+        transform:  rotate(-45deg);
+        -webkit-transform:  rotate(-45deg);
+      }
+    }
+
+
+
+    @-webkit-keyframes object_one {
+      25% { -webkit-transform: translate(0,-50px) rotate(-180deg); }
+      100% { -webkit-transform: translate(0,0) rotate(-180deg); }
+
+    }
+
+    @keyframes object_one {
+      25% {
+        transform: translate(0,-50px) rotate(-180deg);
+        -webkit-transform: translate(0,-50px) rotate(-180deg);
+      }
+      100% {
+        transform: translate(0,0) rotate(-180deg);
+        -webkit-transform: translate(0,0) rotate(-180deg);
+      }
+    }
+
+
+    @-webkit-keyframes object_two {
+      25% { -webkit-transform: translate(50px,0) rotate(-180deg); }
+      100% { -webkit-transform: translate(0,0) rotate(-180deg); }
+    }
+
+    @keyframes object_two {
+      25% {
+        transform: translate(50px,0) rotate(-180deg);
+        -webkit-transform: translate(50px,0) rotate(-180deg);
+      }
+      100% {
+        transform: translate(0,0) rotate(-180deg);
+        -webkit-transform: translate(0,0) rotate(-180deg);
+      }
+    }
+
+    @-webkit-keyframes object_three {
+      25% { -webkit-transform: translate(-50px,0) rotate(-180deg); }
+      100% { -webkit-transform: translate(0,0) rotate(-180deg); }
+    }
+
+    @keyframes object_three {
+      25% {
+        transform:  translate(-50px,0) rotate(-180deg);
+        -webkit-transform:  translate(-50px,0) rotate(-180deg);
+      }
+      100% {
+        transform: translate(0,0) rotate(-180deg);
+        -webkit-transform: rtranslate(0,0) rotate(-180deg);
+      }
+    }
+
+
+    @-webkit-keyframes object_four {
+      25% { -webkit-transform: translate(0,50px) rotate(-180deg); }
+      100% { -webkit-transform: translate(0,0) rotate(-180deg); }
+    }
+
+    @keyframes object_four {
+      25% {
+        transform: translate(0,50px) rotate(-180deg);
+        -webkit-transform: translate(0,50px) rotate(-180deg);
+      }
+      100% {
+        transform: translate(0,0) rotate(-180deg);
+        -webkit-transform: translate(0,0) rotate(-180deg);
+      }
+    }
+}
+
 #admin {
     height: 100%;
+
     .sidebar {
         position: fixed;
         top: 0;
@@ -24,6 +169,7 @@ html, body {
         max-width: 260px;
         box-shadow: $sidebar-shadow;
         padding: 20px;
+        transition: all 0.3s ease-in-out;
 
         .sidebar-header {
             padding-left: 5px;
@@ -31,6 +177,7 @@ html, body {
             .header-title {
                 font-size: 36px;
                 color: $sidebar-header;
+                transition: all 0.3s ease-in-out;
             }
         }
 
@@ -73,6 +220,7 @@ html, body {
         margin-left: 260px;
         width: calc(100% - 260px);
         padding: 1.3rem 2.2rem 2.2rem;
+        transition: all 0.3s ease-in-out;
 
         .navbar-custom {
             border-radius: .5rem;
@@ -251,22 +399,251 @@ html, body {
         border-radius: 16px;
     }
 
-    .btn-add {
+    .btn {
+        border-radius: 0.5rem;
+
+        &:hover, &:focus {
+            box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    .btn-success {
+        background-color: $success;
+        border-color: $success;
+        color: $white;
+    }
+
+    .btn-secondary {
         background-color: $card;
         border-color: $card;
-        border-radius: 0.5rem;
+        color: $white;
+    }
+
+    .btn-danger {
+        background-color: $danger;
+        border-color: $danger;
+        color: $white;
+    }
+
+    .btn-primary {
+        background-color: $primary;
+        border-color: $primary;
+        color: $white;
+    }
+
+    .btn-info {
+        background-color: $info;
+        border-color: $info;
+        color: $white;
+    }
+
+    .btn-warning {
+        background-color: $warning;
+        border-color: $warning;
+        color: $white;
+    }
+
+    .btn-outline-primary {
+        background-color: transparent;
+        border-color: $primary;
+        color: $primary;
+
+        &:hover, &:focus {
+            background-color: $primary;
+            color: $white;
+        }
+    }
+
+    .btn-outline-info {
+        background-color: transparent;
+        border-color: $info;
+        color: $info;
+
+        &:hover, &:focus {
+            background-color: $info;
+            color: $white;
+        }
+    }
+
+    .btn-outline-secondary {
+        background-color: transparent;
+        border-color: $card;
+        color: $card;
+
+        &:hover, &:focus {
+            background-color: $card;
+            color: $white;
+        }
+    }
+
+    .btn-outline-success {
+        background-color: transparent;
+        border-color: $success;
+        color: $success;
+
+        &:hover, &:focus {
+            background-color: $success;
+            color: $white;
+        }
+    }
+
+    .btn-outline-danger {
+        background-color: transparent;
+        border-color: $danger;
+        color: $danger;
+
+        &:hover, &:focus {
+            background-color: $danger;
+            color: $white;
+        }
+    }
+
+    .btn-outline-warning {
+        background-color: transparent;
+        border-color: $warning;
+        color: $warning;
+
+        &:hover, &:focus {
+            background-color: $warning;
+            color: $white;
+        }
     }
 
     .btn-reg {
         background-color: $link-active;
         border-color: $link-active;
-        border-radius: 0.5rem;
     }
 
     .btn-cancel {
         background-color: $red;
         border-color: $red;
+    }
+
+    .text-primary {
+        color: $primary;
+    }
+
+    .text-success {
+        color: $success;
+    }
+
+    .text-info {
+        color: $info;
+    }
+
+    .text-warning {
+        color: $warning;
+    }
+
+    .text-danger {
+        color: $danger;
+    }
+
+    .text-secondary {
+        color: $card;
+    }
+
+    .text-dark {
+        color: $dark;
+    }
+
+    .badge {
+        padding: 8px;
+        border-radius: 16px;
+    }
+
+    .badge-primary {
+        color: $white;
+        background-color: $primary;
+    }
+
+    .badge-success {
+        color: $white;
+        background-color: $success;
+    }
+
+    .badge-info {
+        color: $white;
+        background-color: $info;
+    }
+
+    .badge-warning {
+        color: $white;
+        background-color: $warning;
+    }
+
+    .badge-danger {
+        color: $white;
+        background-color: $danger;
+    }
+
+    .badge-secondary {
+        color: $white;
+        background-color: $card;
+    }
+
+    .badge-dark {
+        color: $white;
+        background-color: $dark;
+    }
+
+    .alert {
+        padding: 10px;
         border-radius: 0.5rem;
+    }
+
+    .alert-primary {
+        color: $white;
+        background-color: $primary;
+        border-color: $primary;
+    }
+
+    .alert-success {
+        color: $white;
+        background-color: $success;
+        border-color: $success;
+    }
+
+    .alert-secondary {
+        color: $white;
+        background-color: $card;
+        border-color: $card;
+    }
+
+    .alert-info {
+        color: $white;
+        background-color: $info;
+        border-color: $info;
+    }
+
+    .alert-warning {
+        color: $white;
+        background-color: $warning;
+        border-color: $warning;
+    }
+
+    .alert-danger {
+        color: $white;
+        background-color: $danger;
+        border-color: $danger;
+    }
+
+    .alert-dark {
+        color: $white;
+        background-color: $dark;
+        border-color: $dark;
+    }
+
+    .form-control {
+        background-color: $form_input;
+        color: $white;
+        border-color: $form_input;
+        border-radius: 6px;
+
+        &:focus {
+            outline: 0;
+            box-shadow: 0 0 0 0.1rem rgba(115, 103, 240, 0.5);
+        }
     }
 
     .custom-modal {
@@ -291,5 +668,81 @@ html, body {
             border-radius: 0.5rem;
             color: $white;
         }
+    }
+
+    .list-avatar {
+        position: relative;
+        background-color: #000;
+        border: 2px solid #fff;
+        border-radius: 25%;
+        width: 30px;
+        height: 30px;
+        transition: all 0.3s ease-in-out;
+
+        &:hover, &:focus {
+            border-radius: 50%;
+
+            .avatar-link {
+
+                .avatar {
+                    border-radius: 50%;
+                }
+            }
+        }
+
+        .avatar-link {
+
+            .avatar {
+                border-radius: 25%;
+                width: 100%;
+                height: 100%;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+    }
+
+    .detail-label {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    ul {
+        &.thumbnails, &.image_picker_selector {
+            li {
+                .thumbnail {
+                    border: 3px solid $white;
+                    width: 143px;
+                    height: 150px;
+                    border-radius: 8px;
+                    padding: 0;
+                    background-color: $white;
+
+                    &.selected {
+                        border-color: $primary;
+                        background-color: $white;
+                    }
+
+                    .image_picker_image {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: inherit;
+                    }
+                }
+            }
+        }
+    }
+
+    #side-header {
+
+        &:hover, &:focus {
+            text-decoration: none;
+        }
+    }
+
+    #side-header-img {
+        transition: all 0.3s ease-in-out;
     }
 }

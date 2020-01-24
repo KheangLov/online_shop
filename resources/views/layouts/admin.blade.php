@@ -12,16 +12,28 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
 
     <!-- Styles -->
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="admin">
-        <aside id="sidebar" class="sidebar">
-            <div class="sidebar-header mb-3">
-                <span id="side-header" class="header-title">{{ config('app.name', 'Laravel Admin') }}</span>
+    <div id="loading_page">
+        <div id="loading-center">
+            <div id="loading-center-absolute">
+                <div class="object" id="object_one"></div>
+                <div class="object" id="object_two"></div>
+                <div class="object" id="object_three"></div>
+                <div class="object" id="object_four"></div>
             </div>
+        </div>
+    </div>
+    <div id="admin" class="d-none">
+        <aside id="sidebar" class="sidebar">
+            <a href="{{ route('admin_dashboard') }}" class="sidebar-header mb-3">
+                <img src="{{ asset('images/logo.png') }}" class="img-fluid" alt="logo" id="side-header-img" style="height: 36px; margin-bottom: 20px;">
+                <span id="side-header" class="header-title">{{ config('app.name', 'Laravel Admin') }}</span>
+            </a>
             <a href="{{ route('admin_dashboard') }}" class="sidebar-link">
                 <div class="inner-link{{ (request()->is('admin')) ? ' active' : '' }}">
                     <span class="link-icon">
@@ -33,17 +45,19 @@
                     <span class="link-text">Dashboard</span>
                 </div>
             </a>
-            <a href="{{ route('user_list') }}" class="sidebar-link">
-                <div class="inner-link{{ (request()->is('admin/user') || request()->is('admin/user/*')) ? ' active' : '' }}">
-                    <span class="link-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user ">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                    </span>
-                    <span class="link-text">Users</span>
-                </div>
-            </a>
+            @if (strtolower(Auth::user()->role->name) === 'admin')
+                <a href="{{ route('user_list') }}" class="sidebar-link">
+                    <div class="inner-link{{ (request()->is('admin/user') || request()->is('admin/user/*')) ? ' active' : '' }}">
+                        <span class="link-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user ">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </span>
+                        <span class="link-text">Users</span>
+                    </div>
+                </a>
+            @endif
             <a href="{{ route('category.index') }}" class="sidebar-link">
                 <div class="inner-link{{ (request()->is('admin/category') || request()->is('admin/category/*') || request()->is('admin/sub-category') || request()->is('admin/sub-category/*')) ? ' active' : '' }}">
                     <span class="link-icon">
@@ -81,11 +95,8 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search ">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                </svg>
+                            <a class="nav-link" id="btn_side_collapse" href="#" style="padding: 0 0 0 10px; font-size: 24px;">
+                                <i class="fas fa-bars" id="btn_side_collapse_icon"></i>
                             </a>
                         </li>
                     </ul>
@@ -107,7 +118,7 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right custom-dropdown-menu" aria-labelledby="userDropDown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('user_detail', ['id' => Auth::user()->id]) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user w-4 h-4">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                         <circle cx="12" cy="7" r="4"></circle>

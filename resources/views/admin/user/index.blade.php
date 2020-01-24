@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<a href="{{ route('user_add') }}" class="btn btn-primary btn-lg btn-add mb-5">Add User</a>
+<a href="{{ route('user_add') }}" class="btn btn-lg btn-secondary mb-5">Add User</a>
 <div class="card card-custom bg-color">
     <div class="card-header d-flex bd-highlight">
         <h2 class="p-2 w-100 bd-highlight">User List</h2>
@@ -17,6 +17,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Avatar</th>
                     <th scope="col">Username</th>
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
@@ -30,8 +31,21 @@
                 @foreach ($users as $user)
                     <tr>
                         <th scope="row">{{ ++$i }}</th>
+                        <td>
+                            <div class="list-avatar">
+                                <a href="{{ route('user_detail', ['id' => $user->id]) }}" class="avatar-link" data-toggle="tooltip" data-placement="top" title="View">
+                                    <div class="avatar" style="background-image: url('{{ asset($user->profile ? $user->profile : 'images/avatar_profile_user_music_headphones_shirt_cool-512.png') }}');"></div>
+                                </a>
+                            </div>
+                        </td>
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
+                        @if ($user->email_verified_at !== null)
+                            <td>{{ $user->email }}</td>
+                        @else
+                            <td class="text-warning" data-toggle="tooltip" data-placement="bottom" title="Email haven't verified!">
+                                {{ $user->email }}
+                            </td>
+                        @endif
                         <td>{{ $user->phone }}</td>
                         <td>{{ $user->role->name }}</td>
                         <td><span class="badge badge-custom {{ ($user->status === 'active') ? 'badge-success' : (($user->status === 'inactive') ? 'badge-danger' : 'badge-warning' ) }}">{{ $user->status }}</span></td>
@@ -43,14 +57,16 @@
                                 </svg>
                             </a>
                             @if (Auth::user()->id !== $user->id)
-                                <button type="button" class="btn-action btn-del p-0" data-toggle="modal" data-target="#btn_delete_user_{{ $user->id }}" data-placement="bottom" title="Delete">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 h-5 w-5 hover:text-danger cursor-pointer">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                    </svg>
-                                </button>
+                                <div class="d-inline" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                    <button type="button" class="btn-action btn-del p-0" data-toggle="modal" data-target="#btn_delete_user_{{ $user->id }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 h-5 w-5 hover:text-danger cursor-pointer">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                        </svg>
+                                    </button>
+                                </div>
                                 <div class="modal fade custom-modal" id="btn_delete_user_{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">

@@ -185,7 +185,6 @@ html, body {
 
             &:hover, &:focus {
                 text-decoration: none;
-                margin-left: 15px;
 
                 .inner-link {
                     padding-left: 20px;
@@ -205,6 +204,7 @@ html, body {
                 }
 
                 .link-icon {
+                    font-size: 20px;
                     margin-right: 15px;
                 }
 

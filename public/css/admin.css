@@ -17488,7 +17488,6 @@ body {
 #admin .sidebar .sidebar-link:hover,
 #admin .sidebar .sidebar-link:focus {
   text-decoration: none;
-  margin-left: 15px;
 }
 
 #admin .sidebar .sidebar-link:hover .inner-link,
@@ -17511,6 +17510,7 @@ body {
 }
 
 #admin .sidebar .sidebar-link .inner-link .link-icon {
+  font-size: 20px;
   margin-right: 15px;
 }
 

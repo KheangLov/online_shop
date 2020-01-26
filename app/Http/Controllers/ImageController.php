@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Image;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,19 +19,34 @@ class ImageController extends Controller
         request()->validate([
             'images' => 'required',
         ]);
-
+        $images = [];
         foreach ($request->images as $key => $value) {
-            $imageName = time(). $key . '.' . $value->getClientOriginalExtension();
+            $imageName = time() . $key . '.' . $value->getClientOriginalExtension();
             $value->move(public_path('images/photo'), $imageName);
             $img = 'images/photo/' . $imageName;
 
-            $images = Image::create([
-                'name' => $value->getClientOriginalName(),
+            $images[$key] = Image::create([
+                'name' => $imageName,
                 'path' => $img,
                 'user_id' => Auth::user()->id
             ]);
         }
 
-        return redirect()->route('product_add')->with('message', 'Images uploaded!');
+        return response()->json(['success' => 'Images uploaded!', 'images' => $images]);
+    }
+
+    public function delete(Request $request)
+    {
+        request()->validate([
+            'files_id' => 'required',
+        ]);
+        $deletedRows = [];
+        foreach ($request->files_id as $key => $value) {
+            $deletedRows[$key] = Image::find($value);
+            File::delete($deletedRows[$key]->path);
+            Image::destroy($value);
+        }
+
+        return response()->json(['success' => 'Images deleted!', 'deletedRows' => $deletedRows]);
     }
 }

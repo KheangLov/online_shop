@@ -17292,8 +17292,35 @@ ul.thumbnails.image_picker_selector li .thumbnail.selected {
   background: #08C;
 }
 
+/* width */
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  border-radius: 15px;
+  background: #262C49;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: #7367F0;
+  border-radius: 15px;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7367F0;
+}
+
 html,
 body {
+  scroll-behavior: smooth;
   height: 100%;
   background-color: #262c49;
 }
@@ -17476,6 +17503,7 @@ body {
 
 #admin .sidebar .sidebar-header {
   padding-left: 5px;
+  text-decoration: none;
 }
 
 #admin .sidebar .sidebar-header .header-title {
@@ -17523,7 +17551,7 @@ body {
   background-color: #262c49;
   margin-left: 260px;
   width: calc(100% - 260px);
-  padding: 1.3rem 2.2rem 2.2rem;
+  padding: 1.3rem 2.2rem 1rem 2.2rem;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
@@ -18025,7 +18053,7 @@ body {
 #admin ul.thumbnails li .thumbnail.selected,
 #admin ul.image_picker_selector li .thumbnail.selected {
   border-color: #7367F0;
-  background-color: #fff;
+  background-color: #7367F0;
 }
 
 #admin ul.thumbnails li .thumbnail .image_picker_image,
@@ -18043,5 +18071,42 @@ body {
 #admin #side-header-img {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+}
+
+#admin .page-item:first-child .page-link {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+#admin .page-item:last-child .page-link {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+#admin .page-item.active {
+  cursor: pointer;
+}
+
+#admin .page-item.active .page-link {
+  color: #fff;
+  background-color: #7367F0;
+}
+
+#admin .page-item.disabled .page-link {
+  color: #B8C2CC;
+}
+
+#admin .page-item .page-link {
+  color: #7367F0;
+  background-color: #262c49;
+  border: none;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#admin .page-item .page-link:hover,
+#admin .page-item .page-link:focus {
+  color: #fff;
+  background-color: #7367F0;
 }
 

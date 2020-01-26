@@ -1,5 +1,6 @@
 <?php
 
+use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -9,12 +10,25 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
         DB::table('roles')->insert([
             ['name' => 'admin'],
             ['name' => 'editor'],
             ['name' => 'user']
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'admin',
+            'email' => 'admin' . '@gmail.com',
+            'email_verified_at' => $faker->dateTime($max = 'now', $timezone = null),
+            'password' => bcrypt('password'),
+            'role_id' => 1,
+            'status' => 'active',
+            'phone' => $faker->phoneNumber,
+            'profile' => 'images/avatar_profile_user_music_headphones_shirt_cool-512.png',
+            'created_at' => $faker->dateTime($max = 'now', $timezone = null),
+            'updated_at' => $faker->dateTime($max = 'now', $timezone = null)
         ]);
 
         DB::table('categories')->insert([
@@ -24,5 +38,18 @@ class DatabaseSeeder extends Seeder
         DB::table('sub_categories')->insert([
             ['name' => 'uncategorized', 'category_id' => 1]
         ]);
+        // $i = 0;
+        // while ($i < 200) {
+        //     DB::table('users')->insert([
+        //         'name' => Str::random(10),
+        //         'email' => Str::random(10).'@gmail.com',
+        //         'password' => bcrypt('password'),
+        //         'role_id' => 3,
+        //         'status' => 'inactive',
+        //         'phone' => $faker->phoneNumber,
+        //         'profile' => 'images/avatar_profile_user_music_headphones_shirt_cool-512.png'
+        //     ]);
+        //     $i++;
+        // }
     }
 }

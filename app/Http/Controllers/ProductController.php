@@ -70,7 +70,7 @@ class ProductController extends Controller
             'Tbong Khmum'
         ];
         $conditions = ['medium', 'old', 'new'];
-        $images = Image::all();
+        $images = Image::all()->sortByDesc('created_at');
         return view('admin.product.add', [
             'categories' => $categories,
             'subCategories' => $subCategories,
@@ -82,12 +82,7 @@ class ProductController extends Controller
 
     public function create(Request $request)
     {
-        if (isset($request->thumbnail)) {
-            $imageName = time() . '.' . $request->thumbnail->extension();
-            $request->thumbnail->move(public_path('images'), $imageName);
-            $img = 'images/' . $imageName;
-        }
-        $post = Post::create([
+        $data = [
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
@@ -96,10 +91,35 @@ class ProductController extends Controller
             'user_id' => Auth::user()->id,
             'category_id' => $request->category,
             'sub_category_id' => $request->subCategory,
-            'status' => $request->status,
-            'thumbnail' => $img
-        ]);
+            'status' => $request->status
+        ];
+        if (isset($request->thumbnail)) {
+            $imageName = time() . '.' . $request->thumbnail->extension();
+            $request->thumbnail->move(public_path('images'), $imageName);
+            $img = 'images/' . $imageName;
+            $data['thumbnail'] = $img;
+        }
+        $post = Post::create($data);
         return redirect()->route('product')->with('message', 'Product created!');
+    }
+
+    public function add_category(Request $request)
+    {
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'user_id' => Auth::user()->id
+        ];
+        if (isset($request->image)) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $img = 'images/' . $imageName;
+            $data['image'] = $img;
+        } else {
+            $data['image'] = 'images/no-image.png';
+        }
+        $cate = Category::create($data);
+        return response()->json(['message' => 'Got Simple Ajax Request.', 'cate' => $cate]);
     }
 
     public function edit($id)

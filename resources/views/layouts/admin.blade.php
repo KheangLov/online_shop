@@ -88,16 +88,29 @@
         </aside>
 
         <div class="main-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-custom bg-custom">
+            <nav class="navbar navbar-expand navbar-custom bg-custom text-nowrap">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" id="btn_side_collapse" href="#" style="padding: 0 0 0 10px; font-size: 24px;">
+                        <li class="nav-item">
+                            <a class="nav-link mr-3" id="btn_side_collapse" href="#" style="padding: 0 0 0 10px; font-size: 24px;">
                                 <i class="fas fa-bars" id="btn_side_collapse_icon"></i>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <h2 class="text-white d-none d-md-block">
+                                @if (request()->is('admin/product') || request()->is('admin/product/*'))
+                                    Products
+                                @elseif (request()->is('admin/user') || request()->is('admin/user/*'))
+                                    Users
+                                @elseif (request()->is('admin/category') || request()->is('admin/category/*'))
+                                    Categories
+                                @else
+                                    Dashboard
+                                @endif
+                            </h2>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -157,6 +170,17 @@
                 </div>
             </nav>
             @yield('content')
+            <footer id="footer">
+                <div class="text-white-50 mt-4 text-nowrap">
+                    © <span id="cpyr_year"></span>, Made with
+                    <div class="d-inline">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart stroke-current text-danger w-6 h-6" style="vertical-align: top;">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </div>
+                    by KHEANG
+                </div>
+            </footer>
         </div>
     </div>
     <script src="{{ asset('js/vendor/jquery-1.12.0.min.js') }}"></script>

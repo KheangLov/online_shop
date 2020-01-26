@@ -85,34 +85,31 @@
                             </a>
                             <div class="collapse multi-collapse" id="multiCollapseExample1">
                                 <div class="card card-body" style="background-color: #222;">
-                                    <form method="POST" action="" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="profile-upload text-center mb-4">
-                                            <div class="profile-overlay">
-                                                <div class="profile-pic" id="profile_bg_image" style="background-image: url('{{ asset('images/no-image.png') }}');"></div>
-                                                <button type="button" class="btn btn-primary btn-profile-upload" id="btn_profile_edit">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user w-4 h-4">
-                                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                                        <circle cx="12" cy="7" r="4"></circle>
-                                                    </svg>
-                                                </button>
-                                                <input type="file" name="image" id="profile_edit" class="d-none">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name">{{ __('Name') }}</label>
-                                            <input id="name" type="text" class="form-control" name="name" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="description">{{ __('Description') }}</label>
-                                            <textarea id="description" cols="5" rows="3" class="form-control" name="description"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-reg">
-                                                {{ __('Create') }}
+                                    <div class="profile-upload text-center mb-4">
+                                        <div class="profile-overlay">
+                                            <div class="profile-pic" id="category_img" style="background-image: url('{{ asset('images/no-image.png') }}');"></div>
+                                            <button type="button" class="btn btn-primary btn-profile-upload" id="btn_category_image">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user w-4 h-4">
+                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                    <circle cx="12" cy="7" r="4"></circle>
+                                                </svg>
                                             </button>
+                                            <input type="file" name="cate_image" id="category_image" class="d-none">
                                         </div>
-                                    </form>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">{{ __('Name') }}</label>
+                                        <input id="cate_name" type="text" class="form-control" name="cate_name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">{{ __('Description') }}</label>
+                                        <textarea id="cate_description" cols="5" rows="3" class="form-control" name="cate_description"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" id="procate_submit" class="btn btn-primary btn-reg">
+                                            {{ __('Create') }}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -128,30 +125,27 @@
                             </a>
                             <div class="collapse multi-collapse" id="multiCollapseExample2">
                                 <div class="card card-body" style="background-color: #222;">
-                                    <form method="POST" action="{{ route('sub_cate_create') }}">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="name">{{ __('Name') }}</label>
-                                            <input id="name" type="text" class="form-control" name="name" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="category">{{ __('Category') }}</label>
-                                            <select name="category" id="category" class="form-control">
-                                                @foreach ($categories as $cate)
-                                                    <option value="{{ $cate->id }}">{{ ucfirst($cate->name) }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="description">{{ __('Description') }}</label>
-                                            <textarea id="description" cols="5" rows="3" class="form-control" name="description"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-reg">
-                                                {{ __('Create') }}
-                                            </button>
-                                        </div>
-                                    </form>
+                                    <div class="form-group">
+                                        <label for="name">{{ __('Name') }}</label>
+                                        <input id="sub_cate_name" type="text" class="form-control" name="sub_cate_name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="category">{{ __('Category') }}</label>
+                                        <select name="sub_cate_category" id="sub_cate_category" class="form-control">
+                                            @foreach ($categories as $cate)
+                                                <option value="{{ $cate->id }}">{{ ucfirst($cate->name) }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">{{ __('Description') }}</label>
+                                        <textarea id="sub_cate_description" cols="5" rows="3" class="form-control" name="sub_cate_description"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-reg">
+                                            {{ __('Create') }}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -181,21 +175,17 @@
                               <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl w-100" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                        <h4 class="modal-title" id="exampleModalLongTitle">Product Images</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" action="{{ route('images_upload') }}" enctype="multipart/form-data">
-                                            @csrf
-                                            <input type="file" name="images[]" id="upload_images" class="d-none" multiple>
-                                            <button type="button" id="btn_upload_images" class="btn btn-primary mb-3 font-weight-bold">
-                                                <i class="fas fa-camera mb-2"></i>
-                                                Upload Image
-                                            </button>
-                                            <button type="submit" class="d-none" id="submit_upload">Submit</button>
-                                        </form>
+                                        <input type="file" name="images[]" id="upload_images" class="d-none" multiple>
+                                        <button type="button" id="btn_upload_images" class="btn btn-primary mb-3 font-weight-bold">
+                                            <i class="fas fa-camera mb-2"></i>
+                                            Upload Image
+                                        </button>
                                         @if (!empty($images))
                                             <select id="images-pick" class="image-picker show-html" multiple="multiple" data-limit="10">
                                                 @foreach ($images as $img)
@@ -204,9 +194,9 @@
                                             </select>
                                         @endif
                                     </div>
-                                    <div class="modal-footer">
+                                    <div class="modal-footer d-flex" id="product_image_model_footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Understood</button>
+                                        <button type="button" class="btn btn-primary" id="btn_choose_imgs" data-dismiss="modal">Choose</button>
                                     </div>
                                 </div>
                               </div>

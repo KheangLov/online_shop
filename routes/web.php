@@ -47,5 +47,7 @@ Route::post('/admin/product/create', 'ProductController@create')->name('product_
 Route::get('/admin/product/edit/{id}', 'ProductController@edit')->name('product_edit');
 Route::put('/admin/product/update/{id}', 'ProductController@update')->name('product_update');
 Route::get('/admin/product/delete/{id}', 'ProductController@delete')->name('product_delete');
+Route::post('/admin/product/category', 'ProductController@add_category')->name('product_cate');
 
 Route::post('/admin/images/upload', 'ImageController@upload')->name('images_upload');
+Route::post('/admin/images/delete', 'ImageController@delete')->name('images_delete');

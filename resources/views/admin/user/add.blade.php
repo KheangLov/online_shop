@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group col-md-7">
                     <label for="phone">{{ __('Phone Number') }}</label>
-                    <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" required>
+                    <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" required>
 
                     @error('phone')
                         <span class="invalid-feedback" role="alert">

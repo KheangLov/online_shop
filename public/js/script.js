@@ -1,5 +1,5 @@
 $(document).ready(function(e) {
-    const checkWidth = function(e) {
+    const checkWidth = function() {
         if ($(document).width() < 1196) {
             localStorage.setItem("toggle", true);
             $('#btn_side_collapse').addClass('d-none');
@@ -169,48 +169,73 @@ $(document).ready(function(e) {
         }
     });
 
-    $("#images-pick").imagepicker({
-        limit: 5,
-        limit_reached: function() {
-            alert("We are full");
-        },
-        changed: function(select, newValues) {
-            if (newValues.length > 0 && !$('#btn_delete_imgs').length) {
-                $('#product_image_model_footer').prepend('<button type="button" class="btn btn-danger mr-auto" id="btn_delete_imgs">Delete</button>');
-                $('#btn_delete_imgs').click(function() {
-                    let formData = new FormData();
-                    $.each($("#images-pick").data("picker").selected_values(), function(index, val) {
-                        formData.append('files_id[]', val);
-                    });
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/admin/images/delete",
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        cache: false,
-                        success: function(data) {
-                            const { deletedRows, success } = data;
-                            $('#btn_upload_images').after(
-                                `<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    ${success}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    const imagePickerMethod = function() {
+        $("#images-pick").imagepicker({
+            limit_reached: function() {
+                alert("We are full!");
+            },
+            changed: function(select, newValues) {
+                console.log(newValues);
+                if (newValues.length > 0 && !$('#btn_delete_imgs').length) {
+                    $('#product_image_model_footer').prepend(`
+                        <button type="button" class="btn btn-danger mr-auto" id="btn_delete_imgs" data-toggle="modal" data-target="#confirm_delete_images">Delete</button>
+                        <div class="modal fade bd-example-modal-sm" id="confirm_delete_images" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">Confirm dialog</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>`
-                            );
-                            $.each(deletedRows, function(index, val) {
-                                $(`#images-pick option[value=${val.id}]`).remove();
-                                $(`.thumbnails.image_picker_selector li .thumbnail.selected .image_picker_image[alt="${val.name}"]`).closest('li').remove();
-                            });
-                        }
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-primary" id="btn_confirm_delete_images">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                    $('#btn_confirm_delete_images').click(function() {
+                        let formData = new FormData();
+                        $.each($("#images-pick").data("picker").selected_values(), function(index, val) {
+                            formData.append('files_id[]', val);
+                        });
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/admin/images/delete",
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            cache: false,
+                            success: function(data) {
+                                const { deletedRows, success } = data;
+                                $('#btn_upload_images').after(
+                                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        ${success}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>`
+                                );
+                                $.each(deletedRows, function(index, val) {
+                                    $(`#images-pick option[value=${val.id}]`).remove();
+                                    $(`.thumbnails.image_picker_selector li .thumbnail.selected .image_picker_image[alt="${val.name}"]`).closest('li').remove();
+                                });
+                            }
+                        });
                     });
-                });
+                }
+                else if (newValues.length <= 0) $('#btn_delete_imgs').remove();
             }
-            else if (newValues.length <= 0) $('#btn_delete_imgs').remove();
-        }
-    });
+        });
+    };
+
+    imagePickerMethod();
 
     $("#btn_choose_imgs").click(function() {
         console.log(
@@ -304,6 +329,7 @@ $(document).ready(function(e) {
                         </li>
                     `);
                 });
+                imagePickerMethod();
             }
         });
     });

@@ -204,33 +204,80 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label for="product_variants">{{ __('Product Variants') }}</label>
-                            <button type="button" class="d-block btn btn-link mb-4">
+                            <button type="button" class="d-block btn btn-link mb-3" data-toggle="collapse" data-target="#pv_form_collapse" aria-expanded="false" aria-controls="pv_form_collapse">
                                 <i class="fas fa-plus mr-1"></i>
                                 Add Product Variant
                             </button>
+                            <div class="row justify-content-center collapse" id="pv_form_collapse">
+                                <div class="form-group col-md-12">
+                                    <input type="hidden" name="pv_product_id" id="pv_product_id" value="{{ $nextId }}">
+                                    <label for="pv_color">{{ __('Color') }}</label>
+                                    <input id="pv_color" type="text" class="form-control" name="pv_color">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="pv_size">{{ __('Size') }}</label>
+                                    <input id="pv_size" type="text" class="form-control" name="pv_size">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="pv_price">{{ __('Price') }}</label>
+                                    <input id="pv_price" type="text" class="form-control" name="pv_price">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="pv_discount">{{ __('Discount') }}</label>
+                                    <input id="pv_discount" type="text" class="form-control" name="pv_discount">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="pv_quantity">{{ __('Quantity') }}</label>
+                                    <input id="pv_quantity" type="text" class="form-control" name="pv_quantity">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <button type="button" class="btn btn-primary" id="btn_submit_pv">
+                                        {{ __('Add') }}
+                                    </button>
+                                </div>
+                            </div>
                             <div class="accordion" id="accordionExample">
                                 <div class="card" style="background-color: #222;">
                                     <div class="card-header p-0" id="headingOne">
                                         <button class="btn btn-link btn-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Collapsible Group Item #1
+                                            Product Variants #1
                                         </button>
                                     </div>
 
                                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                         <div class="card-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card" style="background-color: #222;">
-                                    <div class="card-header p-0" id="headingTwo">
-                                        <button class="btn btn-link btn-block" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            Collapsible Group Item #2
-                                        </button>
-                                    </div>
-                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <strong class="detail-label">Color</strong>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>#ff0000</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <strong class="detail-label">Size</strong>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>xl</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <strong class="detail-label">Quatity</strong>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>20</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <strong class="detail-label">Price</strong>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>$2.5</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <strong class="detail-label">Discount</strong>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>20%</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

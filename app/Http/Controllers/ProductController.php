@@ -8,6 +8,7 @@ use App\Post;
 use App\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -40,6 +41,11 @@ class ProductController extends Controller
 
     public function add()
     {
+        $getNextId = DB::table('information_schema.TABLES')
+            ->where('TABLE_NAME', '=', 'posts')
+            ->get();
+        $nextId = $getNextId[0]->AUTO_INCREMENT;
+
         $categories = Category::all();
         $subCategories = SubCategory::all();
         $provinces = [
@@ -76,7 +82,8 @@ class ProductController extends Controller
             'subCategories' => $subCategories,
             'provinces' => $provinces,
             'conditions' => $conditions,
-            'images' => $images
+            'images' => $images,
+            'nextId' => $nextId
         ]);
     }
 

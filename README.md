@@ -34,7 +34,53 @@ copy .env file from .env.example
 cp .env.example .env
 ```
 
-### Install composer's dependencies
+Install composer packages
 ```
 composer install
 ```
+
+Install node modules
+```
+npm install or yarn
+```
+
+Compile webpack and node modules
+```
+npm run dev or yarn dev
+```
+
+## Database configuration
+- Config database connection in .env
+- if ready then:
+```
+php artisan migrate
+```
+then
+```
+php artisan db:seed
+```
+Default user email => `admin@gmail.com` password => `password`
+or
+Change in DatabaseSeeder
+
+*Don't forget to config mail server in .env file
+
+## To generate key
+```
+php artisan key:generate
+```
+
+## Start project
+```
+php artisa serve
+```
+127.0.0.1:8000
+
+## Use browsersync
+run
+```
+npm run watch or yarn watch
+```
+*Make sure to start the project first
+
+If it not work add `MIX_SENTRY_DSN_PUBLIC=127.0.0.1:8000` to .env file

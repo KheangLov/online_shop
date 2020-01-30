@@ -82,5 +82,3 @@ run
 npm run watch or yarn watch
 ```
 *Make sure to start the project first
-
-If it not work add `MIX_SENTRY_DSN_PUBLIC=127.0.0.1:8000` to .env file

@@ -29,7 +29,12 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 
 ## To use this project
 
-Start with
+copy .env file from .env.example
+```
+cp .env.example .env
+```
+
+### Install composer's dependencies
 ```
 composer install
 ```

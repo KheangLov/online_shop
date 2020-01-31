@@ -29,17 +29,17 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 
 ## To use this project
 
-copy .env file from .env.example
+### copy .env file from .env.example
 ```
 cp .env.example .env
 ```
 
-Install composer packages
+### Install composer packages
 ```
 composer install
 ```
 
-Install node modules
+### Install node modules
 ```
 npm install
 ```
@@ -48,7 +48,7 @@ or
 yarn
 ```
 
-Compile webpack and node modules
+### Compile webpack and node modules
 ```
 npm run dev
 ```
@@ -59,7 +59,7 @@ yarn dev
 
 ## Database configuration
 
-Config database connection in .env file
+### Config database connection in .env file
 then
 ```
 php artisan migrate
@@ -68,11 +68,11 @@ then
 ```
 php artisan db:seed
 ```
-Default user email => `admin@gmail.com` password => `password`
-or
+Default user email => `admin@gmail.com` password => `password`<br />
+or<br />
 Change in DatabaseSeeder
 
-*Don't forget to config mail server in .env file
+**Don't forget to config mail server in .env file**
 
 ## To generate key
 
@@ -83,7 +83,7 @@ php artisan key:generate
 ## Start project
 
 ```
-php artisa serve
+php artisan serve
 ```
 127.0.0.1:8000
 
@@ -91,6 +91,10 @@ php artisa serve
 
 run
 ```
-npm run watch or yarn watch
+npm run watch
 ```
-*Make sure to start the project first
+or
+```
+yarn watch
+```
+**Make sure to start the project first**

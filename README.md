@@ -41,17 +41,26 @@ composer install
 
 Install node modules
 ```
-npm install or yarn
+npm install
+```
+or
+```
+yarn
 ```
 
 Compile webpack and node modules
 ```
-npm run dev or yarn dev
+npm run dev
+```
+or
+```
+yarn dev
 ```
 
 ## Database configuration
-- Config database connection in .env
-- if ready then:
+
+Config database connection in .env file
+then
 ```
 php artisan migrate
 ```
@@ -66,17 +75,20 @@ Change in DatabaseSeeder
 *Don't forget to config mail server in .env file
 
 ## To generate key
+
 ```
 php artisan key:generate
 ```
 
 ## Start project
+
 ```
 php artisa serve
 ```
 127.0.0.1:8000
 
 ## Use browsersync
+
 run
 ```
 npm run watch or yarn watch

@@ -34,7 +34,7 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 cp .env.example .env
 ```
 
-### Install composer packages
+### Install composer dependencies
 ```
 composer install
 ```

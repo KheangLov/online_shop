@@ -29,6 +29,19 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 
 ## To use this project
 
+### Clone the project
+```
+git clone https://github.com/KheangLov/online_shop.git
+```
+then
+```
+git checkout -b `your_branch_name`
+```
+then
+```
+cd online_shop
+```
+
 ### copy .env file from .env.example
 ```
 cp .env.example .env

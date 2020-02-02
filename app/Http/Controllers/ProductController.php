@@ -35,7 +35,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $posts = Post::with(['user', 'category', 'subCategory'])->get();
+        $posts = Post::with(['user', 'category', 'subCategory'])->where('user_id', Auth::user()->id)->get();
         return view('admin.product.index', ['posts' => $posts]);
     }
 
@@ -76,7 +76,7 @@ class ProductController extends Controller
             'Tbong Khmum'
         ];
         $conditions = ['medium', 'old', 'new'];
-        $images = Image::all()->sortByDesc('created_at');
+        $images = Image::whereNull('post_id')->where('user_id', Auth::user()->id)->orderByRaw('created_at DESC')->get();
         return view('admin.product.add', [
             'categories' => $categories,
             'subCategories' => $subCategories,
@@ -89,6 +89,12 @@ class ProductController extends Controller
 
     public function create(Request $request)
     {
+        $images_str_id = json_decode($request->images);
+        $images_id = [];
+        foreach ($images_str_id as $isi) {
+            array_push($images_id, (int)$isi);
+        }
+
         $data = [
             'name' => $request->name,
             'price' => $request->price,
@@ -105,8 +111,11 @@ class ProductController extends Controller
             $request->thumbnail->move(public_path('images'), $imageName);
             $img = 'images/' . $imageName;
             $data['thumbnail'] = $img;
+        } else {
+            $data['thumbnail'] = 'images/no-image.png';
         }
         $post = Post::create($data);
+        Image::whereIn('id', $images_id)->update(['post_id' => $post->id]);
         return redirect()->route('product')->with('message', 'Product created!');
     }
 
@@ -126,17 +135,114 @@ class ProductController extends Controller
             $data['image'] = 'images/no-image.png';
         }
         $cate = Category::create($data);
-        return response()->json(['message' => 'Got Simple Ajax Request.', 'cate' => $cate]);
+        return response()->json(['success' => 'Category added!', 'cate' => $cate]);
+    }
+
+    public function add_sub_category(Request $request)
+    {
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'user_id' => Auth::user()->id
+        ];
+        $subCate = SubCategory::create($data);
+        return response()->json(['success' => 'Sub-Category added!', 'subCate' => $subCate]);
     }
 
     public function edit($id)
     {
-
+        $product = Post::find($id)->where('user_id', Auth::user()->id);
+        $categories = Category::all();
+        $subCategories = SubCategory::all();
+        $provinces = [
+            'Phnom Penh',
+            'Banteay Meanchey',
+            'Battambang',
+            'Kampong Cham',
+            'Kampong Chhnang',
+            'Kampong Speu',
+            'Kampot',
+            'Kandal',
+            'Kep',
+            'Koh Kong',
+            'Kratie',
+            'Mondulkiri',
+            'Oddor Meanchey',
+            'Pailin',
+            'Prey Veng',
+            'Pursat',
+            'Rattanakiri',
+            'Siem Reap',
+            'Sihanouk ville',
+            'Stung Treng',
+            'Svay Rieng',
+            'Takeo',
+            'Kampong Thom',
+            'Preah Vihear',
+            'Tbong Khmum'
+        ];
+        $conditions = ['medium', 'old', 'new'];
+        $images = Image::whereNull('post_id')
+            ->orWhere('post_id', '=', $id)
+            ->orderByRaw('created_at DESC')
+            ->get();
+        return view('admin.product.edit', [
+            'product' => $product,
+            'categories' => $categories,
+            'subCategories' => $subCategories,
+            'provinces' => $provinces,
+            'conditions' => $conditions,
+            'images' => $images
+        ]);
     }
 
     public function update(Request $req, $id)
     {
+        $getNextId = DB::table('information_schema.TABLES')
+            ->where('TABLE_NAME', '=', 'posts')
+            ->get();
+        $nextId = $getNextId[0]->AUTO_INCREMENT;
 
+        $categories = Category::all();
+        $subCategories = SubCategory::all();
+        $provinces = [
+            'Phnom Penh',
+            'Banteay Meanchey',
+            'Battambang',
+            'Kampong Cham',
+            'Kampong Chhnang',
+            'Kampong Speu',
+            'Kampot',
+            'Kandal',
+            'Kep',
+            'Koh Kong',
+            'Kratie',
+            'Mondulkiri',
+            'Oddor Meanchey',
+            'Pailin',
+            'Prey Veng',
+            'Pursat',
+            'Rattanakiri',
+            'Siem Reap',
+            'Sihanouk ville',
+            'Stung Treng',
+            'Svay Rieng',
+            'Takeo',
+            'Kampong Thom',
+            'Preah Vihear',
+            'Tbong Khmum'
+        ];
+        $conditions = ['medium', 'old', 'new'];
+        $images = Image::all()->sortByDesc('created_at');
+        return view('admin.product.edit', [
+            'categories' => $categories,
+            'subCategories' => $subCategories,
+            'provinces' => $provinces,
+            'conditions' => $conditions,
+            'images' => $images,
+            'nextId' => $nextId
+        ]);
     }
 
     public function delete($id)

@@ -78,7 +78,7 @@ class UserController extends Controller
         }
 
         $user = User::create($data);
-        return redirect()->route('user_list')->with('message', 'User created!');
+        return redirect()->route('user_list')->with('success', 'User created!');
     }
 
     public function edit($id)
@@ -141,17 +141,13 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             return redirect()
-                ->route('user_edit')
+                ->route('user_edit', ['id' => $id])
                 ->withErrors($validator);
         }
 
         $user = User::find($id);
         $roles = Role::all()->sortBy("name");
-        if ($request->password !== $request->password_confirmation) {
-            return redirect()
-                ->route('user_edit', ['id' => $id, 'user' => $user, 'roles' => $roles])
-                ->with('error', 'Wrong password confirmation!');
-        }
+
         $user->password = Hash::make($request->password);
 		$user->save();
 		$user->update();

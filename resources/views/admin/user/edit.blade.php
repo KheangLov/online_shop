@@ -38,6 +38,11 @@
                                 </svg>
                             </button>
                             <input type="file" name="profile" id="profile_edit" class="d-none" value="{{ $user->profile }}">
+                            @error('profile')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="row justify-content-center">
@@ -51,7 +56,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-7">
+                        {{-- <div class="form-group col-md-7">
                             <label for="email">{{ __('E-Mail Address') }}</label>
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
 
@@ -60,7 +65,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-7">
                             <label for="phone">{{ __('Phone Number') }}</label>
                             <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $user->phone }}" required>
@@ -72,16 +77,19 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-7">
-                            <label for="status">{{ __('Status') }}</label>
-                            <select id="status" class="form-control" name="status" id="exampleFormControlSelect1">
-                                <option value="active"{{ ($user->status === 'active') ? ' selected' : '' }}>{{ __('Active') }}</option>
-                                <option value="inactive"{{ ($user->status === 'inactive') ? ' selected' : '' }}>{{ __('Inactive') }}</option>
-                                <option value="ban"{{ ($user->status === 'ban') ? ' selected' : '' }}>{{ __('Ban') }}</option>
+                            <label for="status">{{ __('Password type') }}</label>
+                            <select id="password_type" class="form-control" name="password_type">
+                                <option value="0"{{ ($user->password_type === 0) ? ' selected' : '' }}>{{ __('Non-Life time') }}</option>
+                                <option value="1"{{ ($user->password_type === 1) ? ' selected' : '' }}>{{ __('Life time') }}</option>
                             </select>
+                        </div>
+                        <div class="form-group col-md-7" id="password_expire_form_group">
+                            <label for="status">{{ __('Password expiration') }}</label>
+                            <input type="date" name="password_expires_at" id="password_expires_at" class="form-control">
                         </div>
                         <div class="form-group col-md-7">
                             <label for="role">{{ __('Role') }}</label>
-                            <select id="role" class="form-control" name="role" id="exampleFormControlSelect1">
+                            <select id="role" class="form-control" name="role">
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->id }}"{{ ($user->role_id === $role->id) ? ' selected' : '' }}>{{ ucfirst($role->name) }}</option>
                                 @endforeach

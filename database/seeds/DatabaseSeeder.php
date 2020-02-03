@@ -24,9 +24,9 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => $faker->dateTime($max = 'now', $timezone = null),
             'password' => bcrypt('password'),
             'role_id' => 1,
-            'status' => 'active',
             'phone' => $faker->phoneNumber,
             'profile' => 'images/avatar_profile_user_music_headphones_shirt_cool-512.png',
+            'password_type' => 1,
             'created_at' => $faker->dateTime($max = 'now', $timezone = null),
             'updated_at' => $faker->dateTime($max = 'now', $timezone = null)
         ]);

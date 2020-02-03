@@ -66,12 +66,15 @@
                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                 </div>
                 <div class="form-group col-md-7">
-                    <label for="status">{{ __('Status') }}</label>
-                    <select id="status" class="form-control" name="status" id="exampleFormControlSelect1">
-                        <option value="active">{{ __('Active') }}</option>
-                        <option value="inactive">{{ __('Inactive') }}</option>
-                        <option value="ban">{{ __('Ban') }}</option>
+                    <label for="status">{{ __('Password type') }}</label>
+                    <select id="password_type" class="form-control" name="password_type">
+                        <option value="0">{{ __('Non-Life time') }}</option>
+                        <option value="1">{{ __('Life time') }}</option>
                     </select>
+                </div>
+                <div class="form-group col-md-7" id="password_expire_form_group">
+                    <label for="status">{{ __('Password expiration') }}</label>
+                    <input type="date" name="password_expires_at" id="password_expires_at" class="form-control">
                 </div>
                 <div class="form-group col-md-7">
                     <label for="role">{{ __('Role') }}</label>

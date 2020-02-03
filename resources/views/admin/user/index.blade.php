@@ -24,6 +24,11 @@
                 {{ $message }}
             </div>
         @endif
+        @if ($message = Session::get('warning'))
+            <div class="alert alert-warning" role="alert">
+                {{ $message }}
+            </div>
+        @endif
         <div class="table-responsive-xl">
             <table class="table custom-table text-nowrap text-truncate">
                 <thead>

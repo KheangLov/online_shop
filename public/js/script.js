@@ -474,6 +474,21 @@ $(document).ready(function(e) {
             }
         });
     });
+
+    $('#password_type').on('change', function(e) {
+        const pass_type = $('#password_type').val(); 
+        if (pass_type == 1) $('#password_expire_form_group').addClass('d-none');
+        else {
+            if ($('#password_expire_form_group').hasClass('d-none')) $('#password_expire_form_group').removeClass('d-none');
+        }
+    });
+
+    if ($('#password_type').length) {
+        const pass_type = $('#password_type').val(); 
+        if (pass_type == 1) $('#password_expire_form_group').addClass('d-none');
+        else 
+            if ($('#password_expire_form_group').hasClass('d-none')) $('#password_expire_form_group').removeClass('d-none');
+    }
 });
 
 const stringVal = document.getElementById("side-header").innerHTML;

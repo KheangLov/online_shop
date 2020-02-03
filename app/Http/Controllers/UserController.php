@@ -7,6 +7,8 @@ use App\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -28,17 +30,6 @@ class UserController extends Controller
         return view('admin.user.detail', ['user' => $user, 'roles' => $roles]);
     }
 
-    protected function validator(array $data)
-    {
-        return tap(Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required'],
-            'profile' => ['file', 'image', 'max:30720']
-        ]));
-    }
-
     public function add()
     {
         $roles = Role::all();
@@ -47,14 +38,37 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required'],
+            'password_type' => ['required'],
+            'profile' => ['max:5000']
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('user_add')
+                ->withErrors($validator);
+        }
+
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => (int)$request->phone,
-            'status' => $request->status,
-            'role_id' => (int)$request->role
+            'role_id' => (int)$request->role,
+            'password_type' => (int)$request->password_type
         ];
+
+        if ((int)$request->password_type === 0) {
+            $expire_date = $request->password_expires_at;
+            if (empty($request->password_expires_at)) {
+                $expire_date = date("Y-m-d");
+            }
+            $data['password_expires_at'] = $expire_date;
+        }
 
         if (isset($request->profile)) {
             $imageName = time() . '.' . $request->profile->extension();
@@ -62,6 +76,7 @@ class UserController extends Controller
             $img = 'images/' . $imageName;
             $data['profile'] = $img;
         }
+
         $user = User::create($data);
         return redirect()->route('user_list')->with('message', 'User created!');
     }
@@ -76,11 +91,34 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required'],
+            'profile' => ['max:5000']
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('user_edit', ['id' => $id])
+                ->withErrors($validator);
+        }
+
         $roles = Role::all()->sortBy("name");
-		$user->name = $request->name;
-		$user->email = $request->email;
+        $user->name = $request->name;
         $user->phone = $request->phone;
-        $user->status = $request->status;
+        $user->password_type = (int)$request->password_type;
+
+        if ((int)$request->password_type === 0) {
+            $expire_date = $request->password_expires_at;
+            if (empty($request->password_expires_at)) {
+                $expire_date = date("Y-m-d");
+            }
+            $user->password_expires_at = $expire_date;
+        } else {
+            $user->password_expires_at = null;
+        }
+
         if (isset($request->profile)) {
             $imageName = time() . '.' . $request->profile->extension();
             $request->profile->move(public_path('images'), $imageName);
@@ -97,6 +135,16 @@ class UserController extends Controller
 
     public function changePassword(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'password' => ['required', 'string', 'min:8', 'confirmed']
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('user_edit')
+                ->withErrors($validator);
+        }
+
         $user = User::find($id);
         $roles = Role::all()->sortBy("name");
         if ($request->password !== $request->password_confirmation) {
@@ -114,8 +162,15 @@ class UserController extends Controller
 
     public function delete($id)
     {
-        $user = User::find($id);
-		$user->delete();
+        $user = User::where('id', $id)
+            ->where('id', '!=', Auth::user()->id);
+
+        $deleted = $user->delete();
+        if ($deleted === 0)
+            return redirect()
+                ->route('user_list')
+                ->with('warning', 'Can delete current user!');
+
 		return redirect()
 			->route('user_list')
 			->with('success', 'User deleted successfully');

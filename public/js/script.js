@@ -1,7 +1,6 @@
 $(document).ready(function(e) {
     const checkWidth = function() {
         if ($(document).width() < 1196) {
-            localStorage.setItem("toggle", true);
             $('#btn_side_collapse').addClass('d-none');
             $("#sidebar .link-text").each(function() {
                 $(this).addClass("d-none");
@@ -39,7 +38,6 @@ $(document).ready(function(e) {
                 color: "#7367F0"
             });
         } else {
-            localStorage.setItem("toggle", false);
             $('#btn_side_collapse').removeClass('d-none');
             setTimeout(function() {
                 $("#sidebar .link-text").each(function() {

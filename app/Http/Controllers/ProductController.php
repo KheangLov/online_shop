@@ -18,21 +18,6 @@ class ProductController extends Controller
         $this->middleware(['auth', 'verified']);
     }
 
-    protected function validator(array $data)
-    {
-        return tap(Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'price' => ['required'],
-            'description' => ['required', 'string', 'max:255']
-        ]), function($data) {
-            if ($data['profile']) {
-                Validator::make($data, [
-                    'thumbnail' => ['file', 'image', 'max:5120']
-                ]);
-            }
-        });
-    }
-
     public function index()
     {
         $posts = Post::with(['user', 'category', 'subCategory'])->where('user_id', Auth::user()->id)->get();
@@ -46,8 +31,12 @@ class ProductController extends Controller
             ->get();
         $nextId = $getNextId[0]->AUTO_INCREMENT;
 
-        $categories = Category::all();
-        $subCategories = SubCategory::all();
+        $subCategories = SubCategory::whereNull('user_id')
+            ->orWhere('user_id', Auth::user()->id)
+            ->get();
+        $categories = Category::whereNull('user_id')
+            ->orWhere('user_id', Auth::user()->id)
+            ->get();
         $provinces = [
             'Phnom Penh',
             'Banteay Meanchey',
@@ -89,6 +78,18 @@ class ProductController extends Controller
 
     public function create(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'price' => ['required'],
+            'description' => ['required', 'string', 'max:255']
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('product_add')
+                ->withErrors($validator);
+        }
+
         $images_str_id = json_decode($request->images);
         $images_id = [];
         foreach ($images_str_id as $isi) {
@@ -153,8 +154,13 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Post::find($id)->where('user_id', Auth::user()->id);
-        $categories = Category::all();
-        $subCategories = SubCategory::all();
+        $subCategories = SubCategory::whereNull('user_id')
+            ->orWhere('user_id', Auth::user()->id)
+            ->get();
+        $categories = Category::whereNull('user_id')
+            ->orWhere('user_id', Auth::user()->id)
+            ->orderBy("name")
+            ->get();
         $provinces = [
             'Phnom Penh',
             'Banteay Meanchey',
@@ -184,7 +190,7 @@ class ProductController extends Controller
         ];
         $conditions = ['medium', 'old', 'new'];
         $images = Image::whereNull('post_id')
-            ->orWhere('post_id', '=', $id)
+            ->orWhere('post_id', $id)
             ->orderByRaw('created_at DESC')
             ->get();
         return view('admin.product.edit', [

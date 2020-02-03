@@ -40,15 +40,6 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function authenticate(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            return redirect()->route('admin_dashboard')->with('logged_user', Auth::user()->name);
-        }
-    }
-
     protected function authenticated()
     {
         date_default_timezone_set('UTC');

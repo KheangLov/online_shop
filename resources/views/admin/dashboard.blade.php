@@ -26,4 +26,33 @@
         </div>
     </div>
 @endif
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card card-custom bg-color text-center">
+            <div class="card-header">
+                <h2>Activity logs</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table custom-table text-nowrap text-truncate">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card card-custom bg-color text-center">
+            <div class="card-header">
+                <h2>User's last login</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table custom-table text-nowrap text-truncate">
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

@@ -15,7 +15,6 @@ class ChangeImageFieldsDatatypes extends Migration
     {
         Schema::table('images', function (Blueprint $table) {
             $table->unsignedBigInteger('post_id')->nullable()->change();
-            $table->foreign('post_id')->references('id')->on('posts')->change();
         });
     }
 

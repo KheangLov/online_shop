@@ -10,6 +10,7 @@
     </div>
 @endif
 <form method="POST" action="{{ route('product_update', ['id' => $product->id]) }}" enctype="multipart/form-data">
+    @method('PUT')
     @csrf
     <div class="card card-custom bg-color">
         <div class="card-header d-flex bd-highlight">

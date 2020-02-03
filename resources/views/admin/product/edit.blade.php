@@ -9,23 +9,23 @@
         </div>
     </div>
 @endif
-<form method="POST" action="{{ route('product_create') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('product_update', ['id' => $product->id]) }}" enctype="multipart/form-data">
     @csrf
     <div class="card card-custom bg-color">
         <div class="card-header d-flex bd-highlight">
-            <h2 class="p-2 w-100 bd-highlight">Add Product</h2>
+            <h2 class="p-2 w-100 bd-highlight">Edit Product</h2>
         </div>
         <div class="card-body">
             <div class="profile-upload text-center mb-4">
                 <div class="profile-overlay">
-                    <div class="profile-pic" id="profile_bg_image" style="background-image: url('{{ asset('images/no-image.png') }}');"></div>
+                    <div class="profile-pic" id="profile_bg_image" style="background-image: url('{{ asset($product->thumbnail ? $product->thumbnail : 'images/no-image.png') }}');"></div>
                     <button type="button" class="btn btn-primary btn-profile-upload" id="btn_profile_edit" data-toggle="tooltip" data-placement="top" title="Product thumbnail">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user w-4 h-4">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
                     </button>
-                    <input type="file" name="thumbnail" id="profile_edit" class="d-none">
+                    <input type="file" name="thumbnail" id="profile_edit" class="d-none" value="{{ asset($product->thumbnail) }}">
                 </div>
             </div>
             <div class="row">
@@ -33,7 +33,7 @@
                     <div class="row justify-content-center">
                         <div class="form-group col-md-12">
                             <label for="name">{{ __('Name') }}</label>
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autofocus>
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $product->name }}" required autofocus>
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label for="price">{{ __('Price') }}</label>
-                            <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" required>
+                            <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ $product->price }}" required>
 
                             @error('price')
                                 <span class="invalid-feedback" role="alert">
@@ -52,30 +52,30 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label for="condition">{{ __('Condition') }}</label>
-                            <select id="condition" class="form-control" name="condition" id="exampleFormControlSelect1">
+                            <select id="condition" class="form-control" name="condition">
                                 @foreach ($conditions as $condition)
-                                    <option value="{{ strtolower($condition) }}">{{ ucfirst($condition) }}</option>
+                                    <option value="{{ strtolower($condition) }}"{{ strtolower($product->condition) === strtolower($condition) ? ' selected' : '' }}>{{ ucfirst($condition) }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="location">{{ __('Location') }}</label>
-                            <select id="location" class="form-control" name="location" id="exampleFormControlSelect1">
+                            <select id="location" class="form-control" name="location">
                                 @foreach ($provinces as $province)
-                                    <option value="{{ strtolower($province) }}">{{ ucfirst($province) }}</option>
+                                    <option value="{{ strtolower($province) }}"{{ strtolower($product->province) === strtolower($province) ? ' selected' : '' }}>{{ ucfirst($province) }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="status">{{ __('Status') }}</label>
-                            <select id="status" class="form-control" name="status" id="exampleFormControlSelect1">
-                                <option value="0">Inactive</option>
-                                <option value="1">Active</option>
+                            <select id="status" class="form-control" name="status">
+                                <option value="0"{{ $product->status == 0 ? ' selected' : '' }}>Inactive</option>
+                                <option value="1"{{ $product->status == 1 ? ' selected' : '' }}>Active</option>
                             </select>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="description">{{ __('Description') }}</label>
-                            <textarea name="description" class="form-control" id="description" cols="5" rows="3"></textarea>
+                            <textarea name="description" class="form-control" id="description" cols="5" rows="3">{{ $product->description }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                             <label for="category">{{ __('Category') }}</label>
                             <select id="category" class="form-control" name="category">
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ ucfirst($category->name) }}</option>
+                                    <option value="{{ $category->id }}"{{ $product->category_id === $category->id ? ' selected' : '' }}>{{ ucfirst($category->name) }}</option>
                                 @endforeach
                             </select>
                             <a class="btn btn-link" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
@@ -125,7 +125,7 @@
                             <label for="sub_cate">{{ __('Sub Category') }}</label>
                             <select id="sub_cate" class="form-control" name="subCategory">
                                 @foreach ($subCategories as $subCate)
-                                    <option value="{{ $subCate->id }}">{{ ucfirst($subCate->name) }}</option>
+                                    <option value="{{ $subCate->id }}"{{ $product->sub_category_id === $subCate->id ? ' selected' : '' }}>{{ ucfirst($subCate->name) }}</option>
                                 @endforeach
                             </select>
                             <a class="btn btn-link" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
@@ -159,7 +159,6 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label for="images">{{ __('Images') }}</label>
-                            <input type="hidden" name="images" id="images_choosed">
                             <button type="button" class="d-block btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">
                                 Open gallery
                             </button>
@@ -182,7 +181,7 @@
                                         @if (!empty($images))
                                             <select id="images-pick" class="image-picker show-html" multiple="multiple" data-limit="5">
                                                 @foreach ($images as $img)
-                                                    <option data-img-src="{{ asset($img->path) }}" data-img-alt="{{ $img->name }}" value="{{ $img->id }}"></option>
+                                                    <option data-img-src="{{ asset($img->path) }}" data-img-alt="{{ $img->name }}" value="{{ $img->id }}"{{ $img->post_id === $product->id ? ' selected' : '' }}></option>
                                                 @endforeach
                                             </select>
                                         @endif

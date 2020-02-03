@@ -22,9 +22,12 @@ class CategoryController extends Controller
     {
         $id = 0;
         if (isset($_GET['id'])) $id = $_GET['id'];
-        $categories = Category::with('user')->get();
+        $categories = Category::with('user')
+            ->whereNull('user_id')
+            ->orWhere('user_id', Auth::user()->id)
+            ->get();
         if ($id !== 0) {
-            $category = Category::find($id);
+            $category = Category::find($id)->where('user_id', Auth::user()->id);
             return view('admin.category.index', ['category' => $category, 'categories' => $categories, 'edit' => true]);
         }
         return view('admin.category.index', ['categories' => $categories]);
@@ -52,6 +55,8 @@ class CategoryController extends Controller
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
             $img = 'images/' . $imageName;
+        } else {
+            $img = 'images/no-image.png';
         }
         $category = Category::create([
             'name' => $request->name,

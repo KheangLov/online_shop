@@ -191,7 +191,7 @@ $(document).ready(function(e) {
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary" id="btn_confirm_delete_images">Yes</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_confirm_delete_images">Yes</button>
                                     </div>
                                 </div>
                             </div>
@@ -236,6 +236,10 @@ $(document).ready(function(e) {
     imagePickerMethod();
 
     $("#btn_choose_imgs").click(function() {
+        const images = $("#images-pick")
+            .data("picker")
+            .selected_values();
+        $('#images_choosed').val(JSON.stringify(images));
         console.log(
             $("#images-pick")
                 .data("picker")
@@ -266,6 +270,7 @@ $(document).ready(function(e) {
         };
         reader.readAsDataURL(this.files[0]);
     });
+
     $("#procate_submit").on("click", function(e) {
         let image = "";
         if ($("#category_image").prop("files").length > 0) {
@@ -289,6 +294,35 @@ $(document).ready(function(e) {
             enctype: "multipart/form-data",
             success: function(data) {
                 alert(data.success);
+                const { name, id } = data.cate;
+                $('#category').append(`<option value="${id}">${name}</option>`);
+                $('#sub_cate_category').append(`<option value="${id}">${name}</option>`)
+            }
+        });
+    });
+
+    $("#pro_subcate_submit").on("click", function(e) {
+        const name = $("#sub_cate_name").val();
+        const categoryId = $('#sub_cate_category').val();
+        const desc = $("#sub_cate_description").val();
+
+        let formData = new FormData();
+        formData.append("name", name);
+        formData.append("category_id", categoryId);
+        formData.append("description", desc);
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/product/sub-category",
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            enctype: "multipart/form-data",
+            success: function(data) {
+                alert(data.success);
+                const { name, id } = data.subCate;
+                $('#sub_cate').append(`<option value="${id}">${name}</option>`);
             }
         });
     });
@@ -408,6 +442,37 @@ $(document).ready(function(e) {
                 color: ""
             });
         }
+    });
+
+    $('#btn_submit_pv').on('click', function(e) {
+        const productId = $('#pv_product_id').val();
+        const color = $('#pv_color').val();
+        const size = $('#pv_size').val();
+        const price = $('#pv_price').val();
+        const discount = $('#pv_discount').val();
+        const qty = $('#pv_quantity').val();
+
+        let formData = new FormData();
+        formData.append('product_id', productId);
+        formData.append('color', color);
+        formData.append('size', size);
+        formData.append('price', price);
+        formData.append('discount', discount);
+        formData.append('quantity', qty);
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/product-variant/create",
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            enctype: "multipart/form-data",
+            success: function(data) {
+                // $('#accordionExample')
+                alert('Success: ', data);
+            }
+        });
     });
 });
 

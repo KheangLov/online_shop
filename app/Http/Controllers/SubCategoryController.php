@@ -18,10 +18,16 @@ class SubCategoryController extends Controller
     {
         $id = 0;
         if (isset($_GET['id'])) $id = $_GET['id'];
-        $subCategories = SubCategory::with(['user', 'category'])->get();
-        $categories = Category::all()->sortBy("name");
+        $subCategories = SubCategory::with(['user', 'category'])
+            ->whereNull('user_id')
+            ->orWhere('user_id', Auth::user()->id)
+            ->get();
+        $categories = Category::whereNull('user_id')
+            ->orWhere('user_id', Auth::user()->id)
+            ->orderBy("name")
+            ->get();
         if ($id !== 0) {
-            $subCategory = SubCategory::find($id);
+            $subCategory = SubCategory::find($id)->where('user_id', Auth::user()->id);
             return view('admin.subCategory.index', ['subCategory' => $subCategory, 'subCategories' => $subCategories, 'categories' => $categories, 'edit' => true]);
         }
         return view('admin.subCategory.index', ['subCategories' => $subCategories, 'categories' => $categories]);

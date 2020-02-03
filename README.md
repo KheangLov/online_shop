@@ -35,7 +35,7 @@ git clone https://github.com/KheangLov/online_shop.git
 ```
 then
 ```
-git checkout -b `your_branch_name`
+git checkout -b your_branch_name
 ```
 then
 ```

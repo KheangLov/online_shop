@@ -489,6 +489,23 @@ $(document).ready(function(e) {
         else 
             if ($('#password_expire_form_group').hasClass('d-none')) $('#password_expire_form_group').removeClass('d-none');
     }
+
+    $('#user_search').on("input", function() {
+        const value = this.value;
+        let formData = new FormData();
+        formData.append('search', value);
+        $.ajax({
+            type: "POST",
+            url: "/admin/user/search",
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function(data) {
+                $('#user_table').html(data);
+            }
+        });
+    });
 });
 
 const stringVal = document.getElementById("side-header").innerHTML;

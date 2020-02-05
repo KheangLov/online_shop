@@ -22,10 +22,11 @@ class CategoryController extends Controller
     {
         $id = 0;
         if (isset($_GET['id'])) $id = $_GET['id'];
-        $categories = Category::with('user')
-            ->whereNull('user_id')
-            ->orWhere('user_id', Auth::user()->id)
-            ->get();
+        // $categories = Category::with('user')
+        //     ->whereNull('user_id')
+        //     ->orWhere('user_id', Auth::user()->id)
+        //     ->get();
+        $categories = Category::with('user')->paginate(10);
         if ($id !== 0) {
             $category = Category::find($id)->where('user_id', Auth::user()->id);
             return view('admin.category.index', ['category' => $category, 'categories' => $categories, 'edit' => true]);
@@ -122,8 +123,14 @@ class CategoryController extends Controller
      */
     public function destroy($category)
     {
-        $cate = Category::find($category);
-		$cate->delete();
+        $cate = Category::where('id', $category)
+            ->where('user_id', Auth::user()->id);
+        $deleted = $cate->delete();
+        if ($deleted === 0)
+            return redirect()
+                ->route('category.index')
+                ->with('warning', 'Can\'t delete category!');
+
 		return redirect()
 			->route('category.index')
 			->with('delete_success', 'Category deleted successfully');

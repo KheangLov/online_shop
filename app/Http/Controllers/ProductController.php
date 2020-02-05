@@ -31,12 +31,14 @@ class ProductController extends Controller
             ->get();
         $nextId = $getNextId[0]->AUTO_INCREMENT;
 
-        $subCategories = SubCategory::whereNull('user_id')
-            ->orWhere('user_id', Auth::user()->id)
-            ->get();
-        $categories = Category::whereNull('user_id')
-            ->orWhere('user_id', Auth::user()->id)
-            ->get();
+        // $subCategories = SubCategory::whereNull('user_id')
+        //     ->orWhere('user_id', Auth::user()->id)
+        //     ->get();
+        // $categories = Category::whereNull('user_id')
+        //     ->orWhere('user_id', Auth::user()->id)
+        //     ->get();
+        $subCategories = SubCategory::all();
+        $categories = Category::all();
         $provinces = [
             'Phnom Penh',
             'Banteay Meanchey',
@@ -154,13 +156,15 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Post::find($id)->where('user_id', Auth::user()->id);
-        $subCategories = SubCategory::whereNull('user_id')
-            ->orWhere('user_id', Auth::user()->id)
-            ->get();
-        $categories = Category::whereNull('user_id')
-            ->orWhere('user_id', Auth::user()->id)
-            ->orderBy("name")
-            ->get();
+        // $subCategories = SubCategory::whereNull('user_id')
+        //     ->orWhere('user_id', Auth::user()->id)
+        //     ->get();
+        // $categories = Category::whereNull('user_id')
+        //     ->orWhere('user_id', Auth::user()->id)
+        //     ->orderBy("name")
+        //     ->get();
+        $subCategories = SubCategory::all();
+        $categories = Category::all();
         $provinces = [
             'Phnom Penh',
             'Banteay Meanchey',

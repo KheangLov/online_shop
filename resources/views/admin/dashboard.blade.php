@@ -26,33 +26,76 @@
         </div>
     </div>
 @endif
-<div class="row">
-    <div class="col-sm-6">
-        <div class="card card-custom bg-color text-center">
-            <div class="card-header">
-                <h2>Activity logs</h2>
+@if (strtolower(Auth::user()->role->name) === 'admin')
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card card-custom bg-color">
+                <div class="card-header">
+                    <h2>Activity logs</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" style="overflow-y: scroll; max-height: 295px;">
+                        <table class="table custom-table text-nowrap text-truncate">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Log-Name</th>
+                                    <th>Description</th>
+                                    <th>Subject ID</th>
+                                    <th>Subject Type</th>
+                                    <th>Causer ID</th>
+                                    <th>Causer Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php($ai = 0)
+                                @foreach ($activityLogs as $activity)
+                                    <tr>
+                                        <td>{{ ++$ai }}</td>
+                                        <td>{{ $activity->log_name }}</td>
+                                        <td>{{ $activity->description }}</td>
+                                        <td>{{ $activity->subject_id }}</td>
+                                        <td>{{ $activity->subject_type }}</td>
+                                        <td>{{ $activity->causer_id }}</td>
+                                        <td>{{ $activity->causer_type }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table custom-table text-nowrap text-truncate">
-                    </table>
+        </div>
+        <div class="col-sm-6">
+            <div class="card card-custom bg-color">
+                <div class="card-header">
+                    <h2>User's last login</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" style="overflow-y: scroll; max-height: 295px;">
+                        <table class="table custom-table text-nowrap text-truncate">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Username</th>
+                                    <th>Last Login</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php($i = 0)
+                                @foreach ($lastLog as $item)
+                                    <tr>
+                                        <td>{{ ++$i }}</td>
+                                        <td>{{ ucfirst($item->name) }}</td>
+                                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->last_login_at)->setTimezone('Asia/Phnom_Penh')->format('F d, Y h:i:s A') }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="card card-custom bg-color text-center">
-            <div class="card-header">
-                <h2>User's last login</h2>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table custom-table text-nowrap text-truncate">
-
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@endif
 @endsection

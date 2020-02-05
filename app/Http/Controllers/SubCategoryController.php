@@ -18,14 +18,16 @@ class SubCategoryController extends Controller
     {
         $id = 0;
         if (isset($_GET['id'])) $id = $_GET['id'];
-        $subCategories = SubCategory::with(['user', 'category'])
-            ->whereNull('user_id')
-            ->orWhere('user_id', Auth::user()->id)
-            ->get();
-        $categories = Category::whereNull('user_id')
-            ->orWhere('user_id', Auth::user()->id)
-            ->orderBy("name")
-            ->get();
+        // $subCategories = SubCategory::with(['user', 'category'])
+        //     ->whereNull('user_id')
+        //     ->orWhere('user_id', Auth::user()->id)
+        //     ->get();
+        // $categories = Category::whereNull('user_id')
+        //     ->orWhere('user_id', Auth::user()->id)
+        //     ->orderBy("name")
+        //     ->get();
+        $subCategories = SubCategory::with(['user', 'category'])->paginate(10);
+        $categories = Category::all();
         if ($id !== 0) {
             $subCategory = SubCategory::find($id)->where('user_id', Auth::user()->id);
             return view('admin.subCategory.index', ['subCategory' => $subCategory, 'subCategories' => $subCategories, 'categories' => $categories, 'edit' => true]);
@@ -60,8 +62,14 @@ class SubCategoryController extends Controller
 
     public function destroy($id)
     {
-        $subCate = SubCategory::find($id);
-		$subCate->delete();
+        $subCate = SubCategory::where('id', $id)
+            ->where('user_id', Auth::user()->id);
+        $deleted = $subCate->delete();
+        if ($deleted === 0)
+            return redirect()
+                ->route('sub_cate')
+                ->with('warning', 'Can\'t delete category!');
+
 		return redirect()
 			->route('sub_cate')
 			->with('delete_success', 'Sub-Category deleted successfully');

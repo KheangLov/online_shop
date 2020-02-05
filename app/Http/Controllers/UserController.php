@@ -171,4 +171,13 @@ class UserController extends Controller
 			->route('user_list')
 			->with('success', 'User deleted successfully');
     }
+
+    public function search(Request $request)
+    {
+        $users = User::with('role')
+            ->whereRaw('LOWER(`name`) LIKE ? ', ['%' . strtolower($request->search) .'%'])
+            ->paginate(10);
+        // return response()->json(['user' => $user]);
+        return view('admin.ajax-search', ['users' => $users]);
+    }
 }

@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="p-2">
-                    <input type="text" class="form-control" placeholder="Search...">
+                    <input type="text" class="form-control" id="user_search" placeholder="Search...">
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                 {{ $message }}
             </div>
         @endif
-        <div class="table-responsive-xl">
+        <div class="table-responsive-xl" id="user_table">
             <table class="table custom-table text-nowrap text-truncate">
                 <thead>
                     <tr>

@@ -31,6 +31,7 @@ Route::get('/admin/user/edit/{id}', 'UserController@edit')->name('user_edit')->m
 Route::put('/admin/user/update/{id}', 'UserController@update')->name('user_update')->middleware('admin');
 Route::put('/admin/user/password/{id}', 'UserController@changePassword')->name('user_password')->middleware('admin');
 Route::get('/admin/user/delete/{id}', 'UserController@delete')->name('user_delete')->middleware('admin');
+Route::post('/admin/user/search', 'UserController@search')->name('user_search')->middleware('admin');
 
 Route::resource('/admin/category', 'CategoryController')->only([
     'index', 'store', 'update'

@@ -96,6 +96,13 @@
                         {{ $message }}
                     </div>
                 @endif
+                @if ($message = Session::get('warning'))
+                    <div class="alert alert-warning" role="alert">
+                        {{ $message }}
+                    </div>
+                @endif
+                @php($i = 0)
+                @php($no = $subCategories->currentPage() - 1 !== 0 ? strval($subCategories->currentPage() - 1) : '')
                 <div class="table-responsive">
                     <table class="table custom-table text-nowrap text-truncate">
                         <thead>
@@ -108,15 +115,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php ($id = 0)
                             @foreach ($subCategories as $subCate)
                                 <tr>
-                                    <th>{{ ++$id }}</th>
+                                    @php($i++)
+                                    @if ($i === 10)
+                                        @php($i = 0)
+                                        @php($no = $subCategories->currentPage())
+                                    @endif
+                                    <th>{{ $no . $i }}</th>
                                     <td>{{ $subCate->name }}</td>
                                     <td>{{ $subCate->category->name }}</td>
                                     <td>{{ $subCate->user !== null ? $subCate->user->name : 'user' }}</td>
                                     <td>
-                                        @if (strtolower($subCate->name) !== 'uncategorized')
+                                        @if (strtolower($subCate->name) !== 'uncategorized' && Auth::user()->id === $subCate->user_id)
                                             <a href="{{ route('sub_cate', ['id' => $cate->id]) }}" class="btn-action btn-edit" data-toggle="tooltip" data-placement="bottom" title="Edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3 h-5 w-5 mr-4 hover:text-primary cursor-pointer">
                                                     <path d="M12 20h9"></path>
@@ -163,6 +174,12 @@
                 </div>
             </div>
             <div class="card-footer text-muted">
+                <div class="d-xl-none d-lg-none d-md-none d-sm-block">
+                    {{ $subCategories->links('share.paginate') }}
+                </div>
+                <div class="d-none d-md-block">
+                    {{ $subCategories->onEachSide(1)->links() }}
+                </div>
             </div>
         </div>
     </div>

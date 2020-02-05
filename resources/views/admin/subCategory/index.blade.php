@@ -72,8 +72,6 @@
                     </form>
                 @endif
             </div>
-            <div class="card-footer text-muted">
-            </div>
         </div>
     </div>
     <div class="col-md-8 mt-5">

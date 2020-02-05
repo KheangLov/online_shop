@@ -52,7 +52,10 @@ Route::put('/admin/product/update/{id}', 'ProductController@update')->name('prod
 Route::get('/admin/product/delete/{id}', 'ProductController@delete')->name('product_delete');
 Route::post('/admin/product/category', 'ProductController@add_category')->name('product_cate');
 Route::post('/admin/product/sub-category', 'ProductController@add_sub_category')->name('product_sub_cate');
+Route::post('/admin/product/get-sub-category', 'ProductController@get_sub_cate')->name('product_get_sub_cate');
 
+Route::get('/admin/product-variant', 'ProductVariantController@index')->name('product_variant');
+Route::get('/admin/product-variant/add', 'ProductVariantController@add')->name('pv_add');
 Route::post('/admin/product-variant/create', 'ProductVariantController@create')->name('pv_create');
 
 Route::post('/admin/images/upload', 'ImageController@upload')->name('images_upload');

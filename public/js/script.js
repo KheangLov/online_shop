@@ -301,6 +301,31 @@ $(document).ready(function(e) {
         });
     });
 
+    $('#category').on("change", function(e) {
+        const cate = $('#category').val();
+        let formData = new FormData();
+        formData.append('category_id', cate);
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/product/get-sub-category",
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            enctype: "multipart/form-data",
+            success: function(data) {
+                console.log(data);
+                $('#sub_cate')
+                    .empty()
+                    .append('<option value="0">Select any sub-category</option>');
+                data.subCate.forEach(val => {
+                    $('#sub_cate').append(`<option value="${val.id}">${val.name}</option>`);
+                });
+            }
+        });
+    });
+
     $("#pro_subcate_submit").on("click", function(e) {
         const name = $("#sub_cate_name").val();
         const categoryId = $('#sub_cate_category').val();
@@ -476,7 +501,7 @@ $(document).ready(function(e) {
     });
 
     $('#password_type').on('change', function(e) {
-        const pass_type = $('#password_type').val(); 
+        const pass_type = $('#password_type').val();
         if (pass_type == 1) $('#password_expire_form_group').addClass('d-none');
         else {
             if ($('#password_expire_form_group').hasClass('d-none')) $('#password_expire_form_group').removeClass('d-none');
@@ -484,9 +509,9 @@ $(document).ready(function(e) {
     });
 
     if ($('#password_type').length) {
-        const pass_type = $('#password_type').val(); 
+        const pass_type = $('#password_type').val();
         if (pass_type == 1) $('#password_expire_form_group').addClass('d-none');
-        else 
+        else
             if ($('#password_expire_form_group').hasClass('d-none')) $('#password_expire_form_group').removeClass('d-none');
     }
 

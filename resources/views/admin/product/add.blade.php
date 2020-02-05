@@ -9,6 +9,14 @@
         </div>
     </div>
 @endif
+@if ($message = Session::get('error'))
+    <div class="toast fade alert alert-danger" id="myToast" data-delay="3500" style="position: absolute; top: 1%; right: 2%; z-index: 999;">
+        <div class="toast-body">
+            {{ $message }}
+            <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast">&times;</button>
+        </div>
+    </div>
+@endif
 <form method="POST" action="{{ route('product_create') }}" enctype="multipart/form-data">
     @csrf
     <div class="card card-custom bg-color">
@@ -84,6 +92,7 @@
                         <div class="form-group col-md-12">
                             <label for="category">{{ __('Category') }}</label>
                             <select id="category" class="form-control" name="category">
+                                <option value="0">Select any category</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ ucfirst($category->name) }}</option>
                                 @endforeach
@@ -124,9 +133,10 @@
                         <div class="form-group col-md-12">
                             <label for="sub_cate">{{ __('Sub Category') }}</label>
                             <select id="sub_cate" class="form-control" name="subCategory">
-                                @foreach ($subCategories as $subCate)
+                                <option value="0">Select any sub-category</option>
+                                {{-- @foreach ($subCategories as $subCate)
                                     <option value="{{ $subCate->id }}">{{ ucfirst($subCate->name) }}</option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                             <a class="btn btn-link" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
                                 + add sub-categories
@@ -140,6 +150,7 @@
                                     <div class="form-group">
                                         <label for="category">{{ __('Category') }}</label>
                                         <select name="sub_cate_category" id="sub_cate_category" class="form-control">
+                                            <option value="0">Select any category</option>
                                             @foreach ($categories as $cate)
                                                 <option value="{{ $cate->id }}">{{ ucfirst($cate->name) }}</option>
                                             @endforeach

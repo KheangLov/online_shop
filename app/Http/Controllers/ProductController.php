@@ -37,7 +37,7 @@ class ProductController extends Controller
         // $categories = Category::whereNull('user_id')
         //     ->orWhere('user_id', Auth::user()->id)
         //     ->get();
-        $subCategories = SubCategory::all();
+        // $subCategories = SubCategory::all();
         $categories = Category::all();
         $provinces = [
             'Phnom Penh',
@@ -70,12 +70,18 @@ class ProductController extends Controller
         $images = Image::whereNull('post_id')->where('user_id', Auth::user()->id)->orderByRaw('created_at DESC')->get();
         return view('admin.product.add', [
             'categories' => $categories,
-            'subCategories' => $subCategories,
+            // 'subCategories' => $subCategories,
             'provinces' => $provinces,
             'conditions' => $conditions,
             'images' => $images,
             'nextId' => $nextId
         ]);
+    }
+
+    public function get_sub_cate(Request $request)
+    {
+        $subCate = SubCategory::where('category_id', (int)$request->category_id)->get();
+        return response()->json(['success' => 'Category added!', 'subCate' => $subCate]);
     }
 
     public function create(Request $request)
@@ -97,7 +103,9 @@ class ProductController extends Controller
         foreach ($images_str_id as $isi) {
             array_push($images_id, (int)$isi);
         }
-
+        if ($request->category == 0 || $request->subCategory == 0) {
+            return redirect()->route('product')->with('error', 'Wrong data!');
+        }
         $data = [
             'name' => $request->name,
             'price' => $request->price,

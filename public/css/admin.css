@@ -17590,11 +17590,19 @@ body {
 #admin .main-wrapper .card-custom {
   border-radius: 0.5rem;
   box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.1);
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 #admin .main-wrapper .card-custom.bg-color {
   background-color: #10163a;
   color: #fff;
+}
+
+#admin .main-wrapper .card-custom.bg-color-light {
+  background-color: #262c49;
+  color: #fff;
+  border: 1px solid #10163a;
 }
 
 #admin .main-wrapper .card-custom .custom-input {
@@ -18108,5 +18116,11 @@ body {
 #admin .page-item .page-link:focus {
   color: #fff;
   background-color: #7367F0;
+}
+
+#admin .product-to-at:hover .card-custom,
+#admin .product-to-at:focus .card-custom {
+  -webkit-transform: translateY(-4px);
+          transform: translateY(-4px);
 }
 

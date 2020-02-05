@@ -285,10 +285,17 @@ html, body {
         .card-custom {
             border-radius: 0.5rem;
             box-shadow: $card-shadow;
+            transition: all 0.3s ease-in-out;
 
             &.bg-color {
                 background-color: $card;
                 color: $white;
+            }
+
+            &.bg-color-light {
+                background-color: $dropdown;
+                color: $white;
+                border: 1px solid $card;
             }
 
             .custom-input {
@@ -815,6 +822,15 @@ html, body {
             &:hover, &:focus {
                 color: $white;
                 background-color: $primary;
+            }
+        }
+    }
+
+    .product-to-at {
+        &:hover, &:focus {
+
+            .card-custom {
+                transform: translateY(-4px);
             }
         }
     }

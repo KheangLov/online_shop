@@ -33,10 +33,6 @@ class ProductVariantController extends Controller
 
     public function create(Request $request)
     {
-        // if (empty($request->product_id) || $request->product_id === 0) {
-        //     $products = Post::where('user_id', Auth::user()->id)->get();
-        //     return redirect()->route('pv_add')->with(['error' => 'Can not find product_id!', 'products' => $products]);
-        // }
         $data = [
             'color' => $request->color,
             'size' => $request->size,
@@ -47,5 +43,20 @@ class ProductVariantController extends Controller
         ];
         $products = ProductVariant::create($data);
         return redirect()->route('pv_add')->with(['success' => 'Product variant created!', 'products' => $products]);
+    }
+
+    public function edit($id)
+    {
+
+    }
+
+    public function update(Request $request, $id)
+    {
+
+    }
+
+    public function delete($id)
+    {
+        
     }
 }

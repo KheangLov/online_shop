@@ -52,11 +52,11 @@
                                 <td>{{ ucfirst($product->name) }}</td>
                                 <td>{{ ucfirst($product_var->color) }}</td>
                                 <td>{{ $product_var->size }}</td>
-                                <td>${{ $product_var->price }}</td>
-                                <td>%{{ $product_var->discount }}</td>
+                                <td>$ {{ $product_var->price }}</td>
+                                <td>% {{ $product_var->discount }}</td>
                                 <td>{{ $product_var->quantity }}</td>
                                 <td>
-                                    <a href="{{-- route('user_edit', ['id' => $product->id]) --}}" class="btn-action btn-edit" data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                    <a href="{{ route('pv_edit', ['id' => $product_var->id]) }}" class="btn-action btn-edit" data-toggle="tooltip" data-placement="bottom" title="Edit">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3 h-5 w-5 mr-4 hover:text-primary cursor-pointer">
                                             <path d="M12 20h9"></path>
                                             <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
@@ -86,7 +86,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">{{ __('Cancel') }}</button>
-                                                    <a href="{{-- route('user_delete', ['id' => $pridcut->id]) --}}" class="btn btn-primary btn-reg">
+                                                    <a href="{{ route('pv_delete', ['id' => $product_var->id]) }}" class="btn btn-primary btn-reg">
                                                         Yes
                                                     </a>
                                                 </div>

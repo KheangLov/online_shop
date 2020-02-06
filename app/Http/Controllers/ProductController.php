@@ -163,7 +163,7 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product = Post::find($id)->where('user_id', Auth::user()->id);
+        $product = Post::where('id', $id)->where('user_id', Auth::user()->id)->get();
         // $subCategories = SubCategory::whereNull('user_id')
         //     ->orWhere('user_id', Auth::user()->id)
         //     ->get();
@@ -206,7 +206,7 @@ class ProductController extends Controller
             ->orderByRaw('created_at DESC')
             ->get();
         return view('admin.product.edit', [
-            'product' => $product,
+            'product' => $product[0],
             'categories' => $categories,
             'subCategories' => $subCategories,
             'provinces' => $provinces,

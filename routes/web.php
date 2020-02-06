@@ -57,6 +57,9 @@ Route::post('/admin/product/get-sub-category', 'ProductController@get_sub_cate')
 Route::get('/admin/product-variant', 'ProductVariantController@index')->name('product_variant');
 Route::get('/admin/product-variant/add', 'ProductVariantController@add')->name('pv_add');
 Route::post('/admin/product-variant/create', 'ProductVariantController@create')->name('pv_create');
+Route::get('/admin/product-variant/edit/{id}', 'ProductVariantController@edit')->name('pv_edit');
+Route::put('/admin/product-variant/update/{id}', 'ProductVariantController@update')->name('pv_update');
+Route::get('/admin/product-variant/delete/{id}', 'ProductVariantController@delete')->name('pv_delete');
 
 Route::post('/admin/images/upload', 'ImageController@upload')->name('images_upload');
 Route::post('/admin/images/delete', 'ImageController@delete')->name('images_delete');

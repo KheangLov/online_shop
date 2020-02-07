@@ -18,6 +18,8 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/get-product-by-category', 'HomeController@get_product_by_cate')->name('product_get_product_by_cate');
+Route::get('/product/details/{id}', 'HomeController@details')->name('shop_product_details');
 Route::get('/password-expired/{id}', 'PasswordExpiredController@edit')->name('password_expired');
 Route::put('/password-update/{id}', 'PasswordExpiredController@update')->name('password_update');
 

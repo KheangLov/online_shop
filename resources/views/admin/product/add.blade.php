@@ -191,7 +191,7 @@
                                             Upload Image
                                         </button>
                                         @if (!empty($images))
-                                            <select id="images-pick" class="image-picker show-html" multiple="multiple" data-limit="5">
+                                            <select id="images-pick" class="image-picker show-html" multiple="multiple" data-limit="4">
                                                 @foreach ($images as $img)
                                                     <option data-img-src="{{ asset($img->path) }}" data-img-alt="{{ $img->name }}" value="{{ $img->id }}"></option>
                                                 @endforeach
@@ -206,87 +206,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="form-group col-md-12">
-                            <label for="product_variants">{{ __('Product Variants') }}</label>
-                            <button type="button" class="d-block btn btn-link mb-3" data-toggle="collapse" data-target="#pv_form_collapse" aria-expanded="false" aria-controls="pv_form_collapse">
-                                <i class="fas fa-plus mr-1"></i>
-                                Add Product Variant
-                            </button>
-                            <div class="row justify-content-center collapse" id="pv_form_collapse">
-                                <div class="form-group col-md-12">
-                                    <input type="hidden" name="pv_product_id" id="pv_product_id" value="{{ $nextId }}">
-                                    <label for="pv_color">{{ __('Color') }}</label>
-                                    <input id="pv_color" type="text" class="form-control" name="pv_color">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="pv_size">{{ __('Size') }}</label>
-                                    <input id="pv_size" type="text" class="form-control" name="pv_size">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="pv_price">{{ __('Price') }}</label>
-                                    <input id="pv_price" type="text" class="form-control" name="pv_price">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="pv_discount">{{ __('Discount') }}</label>
-                                    <input id="pv_discount" type="text" class="form-control" name="pv_discount">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="pv_quantity">{{ __('Quantity') }}</label>
-                                    <input id="pv_quantity" type="text" class="form-control" name="pv_quantity">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <button type="button" class="btn btn-primary" id="btn_submit_pv">
-                                        {{ __('Add') }}
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="accordion d-none" id="accordionExample">
-                                <div class="card" style="background-color: #222;">
-                                    <div class="card-header p-0" id="headingOne">
-                                        <button class="btn btn-link btn-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Product Variants #1
-                                        </button>
-                                    </div>
-
-                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <strong class="detail-label">Color</strong>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p>#ff0000</p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <strong class="detail-label">Size</strong>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p>xl</p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <strong class="detail-label">Quatity</strong>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p>20</p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <strong class="detail-label">Price</strong>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p>$2.5</p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <strong class="detail-label">Discount</strong>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p>20%</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>

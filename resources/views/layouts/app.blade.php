@@ -45,119 +45,18 @@
                         <div class="row">
                             <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
                                 <div class="logo">
-                                    <a href="{{ route('home') }}">
-                                        <img src="{{ asset('/images/logo/logo.png') }}" alt="logo">
+                                    <a href="{{ route('home') }}" style="font-size: 26px; text-transform: uppercase;">
+                                        L{{ config('app.name', 'arashop') }}
                                     </a>
                                 </div>
                             </div>
                             <!-- Start MAinmenu Ares -->
                             <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
-                                <nav class="mainmenu__nav hidden-xs hidden-sm">
-                                    <ul class="main__menu">
-                                        <li class="drop"><a href="{{ route('home') }}">Home</a></li>
-                                        <li class="drop"><a href="portfolio-card-box-2.html">portfolio</a>
-                                            <ul class="dropdown">
-                                                <li><a href="portfolio-card-box-2.html">portfolio</a></li>
-                                                <li><a href="single-portfolio.html">Single portfolio</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="drop"><a href="blog.html">Blog</a>
-                                            <ul class="dropdown">
-                                                <li><a href="blog.html">blog 3 column</a></li>
-                                                <li><a href="blog-details.html">Blog details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="drop"><a href="shop.html">Shop</a>
-                                            <ul class="dropdown mega_dropdown">
-                                                <!-- Start Single Mega MEnu -->
-                                                <li><a class="mega__title" href="shop.html">shop layout</a>
-                                                    <ul class="mega__item">
-                                                        <li><a href="shop.html">default shop</a></li>
-                                                    </ul>
-                                                </li>
-                                                <!-- End Single Mega MEnu -->
-                                                <!-- Start Single Mega MEnu -->
-                                                <li><a class="mega__title" href="shop.html">product details layout</a>
-                                                    <ul class="mega__item">
-                                                        <li><a href="product-details.html">tab style 1</a></li></li>
-                                                    </ul>
-                                                </li>
-                                                <!-- End Single Mega MEnu -->
-                                                <!-- Start Single Mega MEnu -->
-                                                <li>
-                                                    <ul class="mega__item">
-                                                        <li>
-                                                            <div class="mega-item-img">
-                                                                <a href="shop.html">
-                                                                    <img src="images/feature-img/3.png" alt="">
-                                                                </a>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <!-- End Single Mega MEnu -->
-                                            </ul>
-                                        </li>
-                                        <li class="drop"><a href="#">pages</a>
-                                            <ul class="dropdown">
-                                                <li><a href="about.html">about</a></li>
-                                                <li><a href="#">testimonials <span><i class="zmdi zmdi-chevron-right"></i></span></a>
-                                                    <ul class="lavel-dropdown">
-                                                        <li><a href="customer-review.html">customer review</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="shop.html">shop</a></li>
-                                                <li><a href="shop-sidebar.html">shop sidebar</a></li>
-                                                <li><a href="product-details.html">product details</a></li>
-                                                <li><a href="cart.html">cart</a></li>
-                                                <li><a href="wishlist.html">wishlist</a></li>
-                                                <li><a href="checkout.html">checkout</a></li>
-                                                <li><a href="team.html">team</a></li>
-                                                <li><a href="login-register.html">login & register</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">contact</a></li>
-                                    </ul>
-                                </nav>
-                                <div class="mobile-menu clearfix visible-xs visible-sm">
-                                    <nav id="mobile_dropdown">
-                                        <ul>
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="#">portfolio</a>
-                                                <ul>
-                                                    <li><a href="portfolio-card-box-2.html">portfolio</a></li>
-                                                    <li><a href="single-portfolio.html">Single portfolio</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="blog.html">blog</a>
-                                                <ul>
-                                                    <li><a href="blog.html">blog 3 column</a></li>
-                                                    <li><a href="blog-details.html">Blog details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="drop"><a href="#">pages</a>
-                                                <ul class="dropdown">
-                                                    <li><a href="about.html">about</a></li>
-                                                    <li><a href="customer-review.html">customer review</a></li>
-                                                    <li><a href="shop.html">shop</a></li>
-                                                    <li><a href="shop-sidebar.html">shop sidebar</a></li>
-                                                    <li><a href="product-details.html">product details</a></li>
-                                                    <li><a href="cart.html">cart</a></li>
-                                                    <li><a href="wishlist.html">wishlist</a></li>
-                                                    <li><a href="checkout.html">checkout</a></li>
-                                                    <li><a href="team.html">team</a></li>
-                                                    <li><a href="login-register.html">login & register</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">contact</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
                             </div>
                             <!-- End MAinmenu Ares -->
                             <div class="col-md-2 col-sm-4 col-xs-3">
                                 <ul class="main__menu menu-extra">
-                                    <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
+                                    {{-- <li class="search search__open hidden-xs"><span class="ti-search"></span></li> --}}
                                     @guest
                                         <li>
                                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -183,8 +82,8 @@
                                                 </li>
                                             </ul>
                                         </li>
+                                        <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
                                     @endguest
-                                    <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
                                 </ul>
                             </div>
                         </div>
@@ -196,6 +95,58 @@
             <!-- End Header Style -->
 
             <div class="body__overlay"></div>
+
+            @guest
+
+            @else
+                <div class="shopping__cart">
+                    <div class="shopping__cart__inner">
+                        <div class="offsetmenu__close__btn">
+                            <a href="#"><i class="zmdi zmdi-close"></i></a>
+                        </div>
+                        <div class="shp__cart__wrap">
+                            <div class="shp__single__product">
+                                <div class="shp__pro__thumb">
+                                    <a href="#">
+                                        <img src="images/product/sm-img/1.jpg" alt="product images">
+                                    </a>
+                                </div>
+                                <div class="shp__pro__details">
+                                    <h2><a href="product-details.html">BO&Play Wireless Speaker</a></h2>
+                                    <span class="quantity">QTY: 1</span>
+                                    <span class="shp__price">$105.00</span>
+                                </div>
+                                <div class="remove__btn">
+                                    <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
+                                </div>
+                            </div>
+                            <div class="shp__single__product">
+                                <div class="shp__pro__thumb">
+                                    <a href="#">
+                                        <img src="images/product/sm-img/2.jpg" alt="product images">
+                                    </a>
+                                </div>
+                                <div class="shp__pro__details">
+                                    <h2><a href="product-details.html">Brone Candle</a></h2>
+                                    <span class="quantity">QTY: 1</span>
+                                    <span class="shp__price">$25.00</span>
+                                </div>
+                                <div class="remove__btn">
+                                    <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="shoping__total">
+                            <li class="subtotal">Subtotal:</li>
+                            <li class="total__price">$130.00</li>
+                        </ul>
+                        <ul class="shopping__btn">
+                            <li><a href="cart.html">View Cart</a></li>
+                            <li class="shp__checkout"><a href="checkout.html">Checkout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            @endguest
             @yield('content')
             <!-- Start Footer Area -->
             <footer class="htc__foooter__area gray-bg">
@@ -206,8 +157,8 @@
                             <div class="col-md-3 col-lg-3 col-sm-6">
                                 <div class="ft__widget">
                                     <div class="ft__logo">
-                                        <a href="index.html">
-                                            <img src="images/logo/logo.png" alt="footer logo">
+                                        <a href="{{ route('home') }}" style="font-size: 26px; text-transform: uppercase;">
+                                            L{{ config('app.name', 'arashop') }}
                                         </a>
                                     </div>
                                     <div class="footer-address">
@@ -217,7 +168,7 @@
                                                     <i class="zmdi zmdi-pin"></i>
                                                 </div>
                                                 <div class="address-text">
-                                                    <p>194 Main Rd T, FS Rayed <br> VIC 3057, USA</p>
+                                                    <p>Phnom penh, Cambodia</p>
                                                 </div>
                                             </li>
                                             <li>
@@ -225,7 +176,7 @@
                                                     <i class="zmdi zmdi-email"></i>
                                                 </div>
                                                 <div class="address-text">
-                                                    <a href="#"> info@example.com</a>
+                                                    <a href="#"> larashop@email.com</a>
                                                 </div>
                                             </li>
                                             <li>
@@ -233,7 +184,7 @@
                                                     <i class="zmdi zmdi-phone-in-talk"></i>
                                                 </div>
                                                 <div class="address-text">
-                                                    <p>+012 345 678 102 </p>
+                                                    <p>+855 012 345 678 </p>
                                                 </div>
                                             </li>
                                         </ul>
@@ -252,12 +203,9 @@
                                 <div class="ft__widget">
                                     <h2 class="ft__title">Categories</h2>
                                     <ul class="footer-categories">
-                                        <li><a href="shop-sidebar.html">Men</a></li>
-                                        <li><a href="shop-sidebar.html">Women</a></li>
-                                        <li><a href="shop-sidebar.html">Accessories</a></li>
-                                        <li><a href="shop-sidebar.html">Shoes</a></li>
-                                        <li><a href="shop-sidebar.html">Dress</a></li>
-                                        <li><a href="shop-sidebar.html">Denim</a></li>
+                                        @foreach ($categories as $cate)
+                                            <li><a href="shop-sidebar.html">{{ $cate->name }}</a></li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
@@ -308,14 +256,18 @@
                         <div class="row">
                             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                 <div class="copyright__inner">
-                                    <div class="copyright">
-                                        <p>© 2017 <a href="https://freethemescloud.com/">Free themes Cloud</a>
-                                        All Right Reserved.</p>
+                                    <div class="copyright" style="display: inline;">
+                                        © <span id="cpyr_year"></span>, Made with
+                                        <div style="display: inline;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart stroke-current text-danger w-6 h-6" style="vertical-align: top;">
+                                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                            </svg>
+                                        </div>
+                                        by KHEANG
                                     </div>
                                     <ul class="footer__menu">
-                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="{{ route('admin_dashboard') }}">Admin</a></li>
                                         <li><a href="shop.html">Product</a></li>
-                                        <li><a href="contact.html">Contact Us</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -413,7 +365,7 @@
     </div>
     <!-- END QUICKVIEW PRODUCT -->
     <!-- Placed js at the end of the document so the pages load faster -->
-
+    <div id="fb-root"></div>
     <!-- jquery latest version -->
     <script src="{{ asset('js/vendor/jquery-1.12.0.min.js') }}"></script>
     <!-- Bootstrap framework js -->
@@ -426,5 +378,16 @@
     <script src="{{ asset('js/waypoints.min.js') }}"></script>
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/product.js') }}"></script>
+
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=373794453282051&autoLogAppEvents=1"></script>
+    <script>
+        const footerYear = document.getElementById('cpyr_year');
+        if (footerYear) {
+            const current_date = new Date()
+            const cmm = current_date.getFullYear()
+            footerYear.innerText = cmm;
+        }
+    </script>
 </body>
 </html>

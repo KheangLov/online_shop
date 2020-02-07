@@ -48,7 +48,7 @@
                                 <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->thumbnail }}" class="img-fluid" style="width: 35px; height: 35px; border-radius: 25%; border: 2px solid #fff;">
                             </td>
                             <td>{{ $post->name }}</td>
-                            <td>{{ $post->price }}</td>
+                            <td>$ {{ $post->price }}</td>
                             <td>{{ $post->location }}</td>
                             <td>{{ $post->category->name }}</td>
                             <td>{{ $post->subCategory->name }}</td>

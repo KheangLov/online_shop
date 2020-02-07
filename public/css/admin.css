@@ -17295,6 +17295,7 @@ ul.thumbnails.image_picker_selector li .thumbnail.selected {
 /* width */
 
 ::-webkit-scrollbar {
+  height: 5px;
   width: 5px;
 }
 

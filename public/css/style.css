@@ -55,6 +55,29 @@
   02. Scroll To Top
 ----------------------------------------*/
 
+/* width */
+::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 15px;
+    background: #eaeaea;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #666666;
+    border-radius: 15px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #666666;
+}
+
 #scrollUp {
     border: 3px solid rgba(0, 0, 0, 0.1);
     border-radius: 100%;
@@ -135,6 +158,9 @@
 /*---------------------------------------
   03. Product Area
 ----------------------------------------*/
+html, body {
+    scroll-behavior: smooth;
+}
 
 .pro__thumb a {
     display: block;
@@ -277,6 +303,12 @@
 }
 .product__menu {
     text-align: center;
+}
+.product__menu.custom-product-menu {
+    white-space: nowrap;
+    overflow-x: auto;
+    padding-bottom: 15px;
+    width: 100%;
 }
 .product__menu button {
     background: transparent none repeat scroll 0 0;
@@ -1417,6 +1449,9 @@ h3.widget-title-modal {
 }
 .pro__thumb a img {
     width: 100%;
+}
+.pro__thumb a img.custom_product_thumbnail {
+    height: 270px;
 }
 .popular__product--2 .product__action li:first-child::before,
 .product__style--7 .product__action li:first-child::before {

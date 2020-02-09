@@ -196,7 +196,7 @@
         <div class="card-footer">
             <div class="form-group col-md-12">
                 <button type="submit" class="btn btn-primary btn-reg">
-                    {{ __('Create') }}
+                    {{ __('Update') }}
                 </button>
                 <a href="{{ route('user_list') }}" class="btn btn-primary btn-cancel">
                     {{ __('Cancel') }}

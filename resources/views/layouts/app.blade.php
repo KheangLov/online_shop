@@ -151,104 +151,33 @@
             <!-- Start Footer Area -->
             <footer class="htc__foooter__area gray-bg">
                 <div class="container">
-                    <div class="row">
-                        <div class="footer__container clearfix">
-                            <!-- Start Single Footer Widget -->
-                            <div class="col-md-3 col-lg-3 col-sm-6">
-                                <div class="ft__widget">
-                                    <div class="ft__logo">
-                                        <a href="{{ route('home') }}" style="font-size: 26px; text-transform: uppercase;">
-                                            L{{ config('app.name', 'arashop') }}
-                                        </a>
-                                    </div>
-                                    <div class="footer-address">
-                                        <ul>
-                                            <li>
-                                                <div class="address-icon">
-                                                    <i class="zmdi zmdi-pin"></i>
-                                                </div>
-                                                <div class="address-text">
-                                                    <p>Phnom penh, Cambodia</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="address-icon">
-                                                    <i class="zmdi zmdi-email"></i>
-                                                </div>
-                                                <div class="address-text">
-                                                    <a href="#"> larashop@email.com</a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="address-icon">
-                                                    <i class="zmdi zmdi-phone-in-talk"></i>
-                                                </div>
-                                                <div class="address-text">
-                                                    <p>+855 012 345 678 </p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <ul class="social__icon">
-                                        <li><a href="#"><i class="zmdi zmdi-twitter"></i></a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-instagram"></i></a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-google-plus"></i></a></li>
-                                    </ul>
-                                </div>
+                    <div class="footer__container text-center">
+                        <div class="ft__widget">
+                            <div class="ft__logo">
+                                <a href="{{ route('home') }}" style="font-size: 46px; text-transform: uppercase;">
+                                    L{{ config('app.name', 'arashop') }}
+                                </a>
                             </div>
-                            <!-- End Single Footer Widget -->
-                            <!-- Start Single Footer Widget -->
-                            <div class="col-md-3 col-lg-2 col-sm-6 smt-30 xmt-30">
-                                <div class="ft__widget">
-                                    <h2 class="ft__title">Categories</h2>
-                                    <ul class="footer-categories">
-                                        @foreach ($categories as $cate)
-                                            <li><a href="shop-sidebar.html">{{ $cate->name }}</a></li>
-                                        @endforeach
-                                    </ul>
+                            {{-- <div class="footer-address">
+                                <div style="margin-bottom: 20px; font-size: 16px;">
+                                    <i class="zmdi zmdi-pin" style="margin-right: 5px;"></i>
+                                    <a href="#"> Phnom penh, Cambodia</a>
                                 </div>
-                            </div>
-                            <!-- Start Single Footer Widget -->
-                            <div class="col-md-3 col-lg-2 col-sm-6 smt-30 xmt-30">
-                                <div class="ft__widget">
-                                    <h2 class="ft__title">Infomation</h2>
-                                    <ul class="footer-categories">
-                                        <li><a href="about.html">About Us</a></li>
-                                        <li><a href="contact.html">Contact Us</a></li>
-                                        <li><a href="#">Terms & Conditions</a></li>
-                                        <li><a href="#">Returns & Exchanges</a></li>
-                                        <li><a href="#">Shipping & Delivery</a></li>
-                                        <li><a href="#">Privacy Policy</a></li>
-                                    </ul>
+                                <div style="margin-bottom: 20px; font-size: 16px;">
+                                    <i class="zmdi zmdi-email" style="margin-right: 5px;"></i>
+                                    <a href="#"> larashop@email.com</a>
                                 </div>
-                            </div>
-                            <!-- Start Single Footer Widget -->
-                            <div class="col-md-3 col-lg-3 col-lg-offset-1 col-sm-6 smt-30 xmt-30">
-                                <div class="ft__widget">
-                                    <h2 class="ft__title">Newsletter</h2>
-                                    <div class="newsletter__form">
-                                        <p>Subscribe to our newsletter and get 10% off your first purchase .</p>
-                                        <div class="input__box">
-                                            <div id="mc_embed_signup">
-                                                <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                                                    <div id="mc_embed_signup_scroll" class="htc__news__inner">
-                                                        <div class="news__input">
-                                                            <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email Address" required>
-                                                        </div>
-                                                        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                                                        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef" tabindex="-1" value=""></div>
-                                                        <div class="clearfix subscribe__btn"><input type="submit" value="Send" name="subscribe" id="mc-embedded-subscribe" class="bst__btn btn--white__color">
-
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div style="margin-bottom: 20px; font-size: 16px;">
+                                    <i class="zmdi zmdi-phone-in-talk" style="margin-right: 5px;"></i>
+                                    <a href="#"> +855 012 345 678</a>
                                 </div>
-                            </div>
-                            <!-- End Single Footer Widget -->
+                            </div> --}}
+                            <ul class="social__icon" style="justify-content: center;">
+                                <li><a href="https://twitter.com/Kheang_Lov"><i class="zmdi zmdi-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com/kheang_lov/"><i class="zmdi zmdi-instagram"></i></a></li>
+                                <li><a href="https://www.facebook.com/lovsokheang"><i class="zmdi zmdi-facebook"></i></a></li>
+                                <li><a href="https://www.youtube.com/channel/UCMYBSHJy4UWVpJoTDh50ZpA?view_as=subscriber"><i class="zmdi zmdi-youtube"></i></a></li>
+                            </ul>
                         </div>
                     </div>
                     <!-- Start Copyright Area -->
@@ -267,7 +196,6 @@
                                     </div>
                                     <ul class="footer__menu">
                                         <li><a href="{{ route('admin_dashboard') }}">Admin</a></li>
-                                        <li><a href="shop.html">Product</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -366,6 +294,7 @@
     <!-- END QUICKVIEW PRODUCT -->
     <!-- Placed js at the end of the document so the pages load faster -->
     <div id="fb-root"></div>
+
     <!-- jquery latest version -->
     <script src="{{ asset('js/vendor/jquery-1.12.0.min.js') }}"></script>
     <!-- Bootstrap framework js -->

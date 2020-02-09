@@ -1,4 +1,4 @@
-@extends('layouts.app', ['categories' => $categories])
+@extends('layouts.app')
 
 @section('content')
 <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/2.jpg) no-repeat scroll center center / cover ;">
@@ -16,7 +16,7 @@
     </div>
 </div>
 <!-- Start Our Product Area -->
-<section class="htc__product__area shop__page ptb--130 bg__white">
+<section class="htc__product__area shop__page ptb--130 bg__white" style="padding: 200px 0;">
     <div class="container">
         <div class="htc__product__container">
             <!-- Start Product MEnu -->
@@ -71,15 +71,6 @@
                     @endforeach
                 </div>
             </div>
-            <!-- Start Load More BTn -->
-            {{-- <div class="row mt--60">
-                <div class="col-md-12">
-                    <div class="htc__loadmore__btn">
-                        <a href="#">load more</a>
-                    </div>
-                </div>
-            </div> --}}
-            <!-- End Load More BTn -->
         </div>
     </div>
 </section>

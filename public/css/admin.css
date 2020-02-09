@@ -18125,3 +18125,8 @@ body {
           transform: translateY(-4px);
 }
 
+#admin .dropdown-header {
+  font-size: 24px;
+  color: #7367F0;
+}
+

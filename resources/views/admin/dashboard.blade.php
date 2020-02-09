@@ -29,7 +29,7 @@
 @if (strtolower(Auth::user()->role->name) === 'admin')
     <div class="row">
         <div class="col-sm-6">
-            <div class="card card-custom bg-color">
+            <div class="card card-custom mb-4 bg-color">
                 <div class="card-header">
                     <h2>Activity logs</h2>
                 </div>
@@ -67,7 +67,7 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="card card-custom bg-color">
+            <div class="card card-custom mb-4 bg-color">
                 <div class="card-header">
                     <h2>User's last login</h2>
                 </div>

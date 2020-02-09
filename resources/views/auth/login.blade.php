@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Start Login Register Area -->
-<div class="htc__login__register bg__white ptb--130" style="background: rgba(0, 0, 0, 0) url({{ asset('images/bg/5.jpg') }}) no-repeat scroll center center / cover ;">
+<div class="htc__login__register bg__white ptb--130" style="background: rgba(0, 0, 0, 0) url({{ asset('images/bg/5.jpg') }}) no-repeat scroll center center / cover ; padding: 250px 0;">
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">

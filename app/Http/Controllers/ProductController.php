@@ -217,50 +217,48 @@ class ProductController extends Controller
 
     public function update(Request $req, $id)
     {
-        $getNextId = DB::table('information_schema.TABLES')
-            ->where('TABLE_NAME', '=', 'posts')
-            ->get();
-        $nextId = $getNextId[0]->AUTO_INCREMENT;
-
-        $categories = Category::all();
-        $subCategories = SubCategory::all();
-        $provinces = [
-            'Phnom Penh',
-            'Banteay Meanchey',
-            'Battambang',
-            'Kampong Cham',
-            'Kampong Chhnang',
-            'Kampong Speu',
-            'Kampot',
-            'Kandal',
-            'Kep',
-            'Koh Kong',
-            'Kratie',
-            'Mondulkiri',
-            'Oddor Meanchey',
-            'Pailin',
-            'Prey Veng',
-            'Pursat',
-            'Rattanakiri',
-            'Siem Reap',
-            'Sihanouk ville',
-            'Stung Treng',
-            'Svay Rieng',
-            'Takeo',
-            'Kampong Thom',
-            'Preah Vihear',
-            'Tbong Khmum'
-        ];
-        $conditions = ['medium', 'old', 'new'];
-        $images = Image::all()->sortByDesc('created_at');
-        return view('admin.product.edit', [
-            'categories' => $categories,
-            'subCategories' => $subCategories,
-            'provinces' => $provinces,
-            'conditions' => $conditions,
-            'images' => $images,
-            'nextId' => $nextId
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'price' => ['required'],
+            'description' => ['required', 'string', 'max:255']
         ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('product_add')
+                ->withErrors($validator);
+        }
+
+        $images_str_id = json_decode($request->images);
+        $images_id = [];
+        foreach ($images_str_id as $isi) {
+            array_push($images_id, (int)$isi);
+        }
+        if ($request->category == 0 || $request->subCategory == 0) {
+            return redirect()->route('product')->with('error', 'Wrong data!');
+        }
+        $data = [
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+            'condition' => $request->condition,
+            'location' => $request->location,
+            'user_id' => Auth::user()->id,
+            'category_id' => $request->category,
+            'sub_category_id' => $request->subCategory,
+            'status' => $request->status
+        ];
+        if (isset($request->thumbnail)) {
+            $imageName = time() . '.' . $request->thumbnail->extension();
+            $request->thumbnail->move(public_path('images'), $imageName);
+            $img = 'images/' . $imageName;
+            $data['thumbnail'] = $img;
+        } else {
+            $data['thumbnail'] = 'images/no-image.png';
+        }
+        $post = Post::create($data);
+        Image::whereIn('id', $images_id)->update(['post_id' => $post->id]);
+        return redirect()->route('product')->with('message', 'Product created!');
     }
 
     public function delete($id)

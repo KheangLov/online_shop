@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="user_id" content="{{ Auth::check() ? Auth::user()->id : '' }}">
 
     <title>{{ config('app.name', 'Laravel Admin') }}</title>
 
@@ -131,39 +132,31 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">                    
-                        <li class="nav-item dropdown custom-dropdown mt-2 mr-2">
-                            <span class="badge badge-primary" style="padding: 5px; border-radius: 50%; position: absolute; top: -3px; right: 0;">9+</span>
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="user-name d-block">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell "><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                                </span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right custom-dropdown-menu p-0" aria-labelledby="userDropDown" style="padding: 0.5rem 0 !important;">
-                                <h2 class="dropdown-header pt-0 pb-0 font-weight-bold">Notifications</h2>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('user_detail', ['id' => Auth::user()->id]) }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user w-4 h-4">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="12" cy="7" r="4"></circle>
-                                    </svg>
-                                    <span class="ml-1">Profile</span>
+                        @if (Auth::user()->role->name === 'admin')
+                            {{-- @php($user = App\User::find(Auth::user()->id)) --}}
+                            <li class="nav-item dropdown custom-dropdown mt-2 mr-2">
+                                <span class="badge badge-primary" style="padding: 5px; border-radius: 50%; position: absolute; top: -3px; right: 0;">9+</span>
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="user-name d-block">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell "><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                                    </span>
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell ">
-                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                                    </svg>
-                                    <span class="ml-1">Notification</span>
-                                </a>
-                                <a class="dropdown-item" href="{{ route('home') }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                    </svg>
-                                    <span class="ml-1">Home</span>
-                                </a>
-                            </div>
-                        </li>
+                                <div class="dropdown-menu dropdown-menu-right custom-dropdown-menu p-0" aria-labelledby="userDropDown" style="padding: 0.5rem 0 !important;">
+                                    <h2 class="dropdown-header pt-0 pb-0 font-weight-bold">Notifications</h2>
+                                    <div class="dropdown-divider"></div>
+                                    <notification-component v-bind:notifications="notifications"></notification-component>
+                                    {{-- @foreach ($user->notifications as $notification)
+                                        <a class="dropdown-item" href="{{ route('user_detail', ['id' => $notification->data['user_id']]) }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user w-4 h-4">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="12" cy="7" r="4"></circle>
+                                            </svg>
+                                            <span class="ml-1 text-nowrap text-truncate">#{{ $notification->data['user_id'] }}, <strong>{{ strtoupper($notification->data['user_name']) }}</strong>, {{ $notification->data['messages'] }}</span>
+                                        </a>
+                                    @endforeach --}}
+                                </div>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <div class="current-user text-right">
                                 <span class="user-name d-block">

@@ -22,6 +22,7 @@ Route::post('/get-product-by-category', 'HomeController@get_product_by_cate')->n
 Route::get('/product/details/{id}', 'HomeController@details')->name('shop_product_details');
 Route::get('/password-expired/{id}', 'PasswordExpiredController@edit')->name('password_expired');
 Route::put('/password-update/{id}', 'PasswordExpiredController@update')->name('password_update');
+Route::post('/notification/get', 'NotificationController@get')->name('get_notification')->middleware('admin');
 
 Route::get('/admin', 'AdminController@index')->name('admin_dashboard');
 

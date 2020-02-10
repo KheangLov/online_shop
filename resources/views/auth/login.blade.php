@@ -22,14 +22,14 @@
 
                         <input type="email" name="email" placeholder="Email">
                         @error('email')
-                            <div class="invalid-feedback" role="alert">
+                            <div class="invalid-feedback text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </div>
                         @enderror
 
                         <input type="password" name="password" placeholder="Password">
                         @error('password')
-                            <div class="invalid-feedback" role="alert">
+                            <div class="invalid-feedback text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </div>
                         @enderror

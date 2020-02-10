@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use App\Role;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -66,13 +67,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = 'user';
-        $role = Role::where('name', '=', $user)->firstOrFail();
+        date_default_timezone_set('UTC');
+
+        $currentDate = Carbon::now();
+        $role = Role::where('name', '=', 'user')->firstOrFail();
+        $effectiveDate = date('Y-m-d', strtotime("+3 months", strtotime($currentDate)));
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'phone' => (int)$data['phone'],
+            'status' => 'active',
+            'password_expires_at' => $effectiveDate,
+            'last_login_at' => $currentDate->toDateTimeString(),
             'role_id' => $role['id']
         ]);
     }

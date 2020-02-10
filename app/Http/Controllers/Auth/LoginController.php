@@ -7,6 +7,9 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth as AuthUser;
 use Carbon\Carbon;
+use Notification;
+use App\User;
+use App\Notifications\UserNotification;
 
 class LoginController extends Controller
 {
@@ -54,6 +57,19 @@ class LoginController extends Controller
         $user->last_login_at = $currentDate->toDateTimeString();
         $user->save();
         $user->update();
+
+        $admin = User::where('role_id', 1)->get();
+        $details = [
+            'greeting' => 'Hi Artisan',
+            'body' => 'have been logged in!',
+            'thanks' => 'Thank you for using ItSolutionStuff.com tuto!',
+            'actionText' => 'View My Site',
+            'actionURL' => url('/'),
+            'user_id' => $user->id,
+            'user_name' => $user->name
+        ];
+
+        Notification::send($admin, new UserNotification($details));
     }
 
     protected function logout()
@@ -63,6 +79,20 @@ class LoginController extends Controller
         $user->save();
         $user->update();
         AuthUser::logout();
+
+        $admin = User::where('role_id', 1)->get();
+        $details = [
+            'greeting' => 'Hi Artisan',
+            'body' => 'have been logged out!',
+            'thanks' => 'Thank you for using ItSolutionStuff.com tuto!',
+            'actionText' => 'View My Site',
+            'actionURL' => url('/'),
+            'user_id' => $user->id,
+            'user_name' => $user->name
+        ];
+
+        Notification::send($admin, new UserNotification($details));
+
 		return redirect()->route('login');
     }
 }

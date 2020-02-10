@@ -30,6 +30,7 @@
         "@fortawesome/fontawesome-free": "^5.12.0",
         "font-awesome": "^4.7.0",
         "image-picker": "^0.3.1",
+        "pusher-js": "^5.0.3",
         "uglify-js": "^3.7.6"
     }
 }

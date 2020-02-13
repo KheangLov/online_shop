@@ -29,13 +29,5 @@ Vue.component('notification-component', require('./components/NotificationCompon
  */
 
 const app = new Vue({
-    el: '#app',
-    data: {
-        notifications: ''
-    },
-    created() {
-        axios.post('/notification/get').then(res => {
-            this.notifications = res.data;
-        });
-    }
+    el: '#app'
 });

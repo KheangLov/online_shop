@@ -85,7 +85,7 @@
                         </div>
                         <div class="form-group col-md-7" id="password_expire_form_group">
                             <label for="status">{{ __('Password expiration') }}</label>
-                            <input type="date" name="password_expires_at" id="password_expires_at" class="form-control">
+                            <input type="date" name="password_expires_at" id="password_expires_at" class="form-control" value="{{ $user->password_expires_at ? $user->password_expires_at : '' }}">
                         </div>
                         <div class="form-group col-md-7">
                             <label for="role">{{ __('Role') }}</label>

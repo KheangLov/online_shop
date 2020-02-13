@@ -1881,16 +1881,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['notifications', 'userid'],
+  props: ['notifications', 'userid', 'unreads'],
   components: {
     NotificationItemComponent: _NotificationItemComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
+      unreadNotifications: this.unreads,
       newNotifications: this.notifications
     };
+  },
+  methods: {
+    markNotificationAsRead: function markNotificationAsRead() {
+      if (this.unreadNotifications.length) {
+        axios.get('/mark-as-read');
+      }
+    }
   },
   mounted: function mounted() {
     var _this = this;
@@ -1906,6 +1920,8 @@ __webpack_require__.r(__webpack_exports__);
       };
 
       _this.newNotifications.unshift(moreNotifications);
+
+      _this.unreadNotifications.unshift(moreNotifications);
     });
   }
 });
@@ -47539,30 +47555,39 @@ var render = function() {
     "li",
     { staticClass: "nav-item dropdown custom-dropdown mt-2 mr-2" },
     [
-      _c(
-        "span",
-        {
-          staticClass: "badge badge-primary",
-          staticStyle: {
-            padding: "5px",
-            "border-radius": "50%",
-            position: "absolute",
-            top: "-3px",
-            right: "0"
-          }
-        },
-        [
-          _vm._v(
-            "\n        " +
-              _vm._s(
-                _vm.newNotifications.length <= 9
-                  ? _vm.newNotifications.length
-                  : "9+"
-              ) +
-              "\n    "
+      _vm.unreadNotifications.length <= 9
+        ? _c(
+            "span",
+            {
+              staticClass: "badge badge-primary",
+              staticStyle: {
+                padding: "5px",
+                "border-radius": "50%",
+                position: "absolute",
+                top: "-3px",
+                right: "0"
+              }
+            },
+            [
+              _vm._v(
+                "\n        " + _vm._s(_vm.unreadNotifications.length) + "\n    "
+              )
+            ]
           )
-        ]
-      ),
+        : _c(
+            "span",
+            {
+              staticClass: "badge badge-primary",
+              staticStyle: {
+                padding: "5px",
+                "border-radius": "50%",
+                position: "absolute",
+                top: "-3px",
+                right: "0"
+              }
+            },
+            [_vm._v("\n        " + _vm._s("9+") + "\n    ")]
+          ),
       _vm._v(" "),
       _c(
         "a",
@@ -47575,7 +47600,8 @@ var render = function() {
             "data-toggle": "dropdown",
             "aria-haspopup": "true",
             "aria-expanded": "false"
-          }
+          },
+          on: { click: _vm.markNotificationAsRead }
         },
         [
           _c("span", { staticClass: "user-name d-block" }, [
@@ -47610,18 +47636,27 @@ var render = function() {
         "div",
         {
           staticClass:
-            "dropdown-menu dropdown-menu-right custom-dropdown-menu p-0",
-          staticStyle: { padding: "0.5rem 0 !important" },
+            "dropdown-menu dropdown-menu-right custom-dropdown-menu p-0 border-0",
+          staticStyle: { "box-shadow": "2px 2px 6px rgba(0, 0, 0, 0.25)" },
           attrs: { "aria-labelledby": "userDropDown" }
         },
         [
-          _c(
-            "h2",
-            { staticClass: "dropdown-header pt-0 pb-0 font-weight-bold" },
-            [_vm._v("Notifications")]
-          ),
+          _c("div", { staticClass: "notification-header text-center" }, [
+            _c(
+              "h2",
+              {
+                staticClass: "dropdown-header pt-0 pb-0 font-weight-bold",
+                staticStyle: { color: "#fff" }
+              },
+              [_vm._v(_vm._s(_vm.unreads.length) + " unread")]
+            ),
+            _vm._v(" "),
+            _c("h4", { staticClass: "m-0", staticStyle: { color: "#fff" } }, [
+              _vm._v("All notifications")
+            ])
+          ]),
           _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
+          _c("div", { staticClass: "dropdown-divider m-0" }),
           _vm._v(" "),
           _c(
             "div",
@@ -47661,38 +47696,46 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-    _c(
-      "svg",
-      {
-        staticClass: "feather feather-user w-4 h-4",
-        attrs: {
-          xmlns: "http://www.w3.org/2000/svg",
-          width: "14px",
-          height: "14px",
-          viewBox: "0 0 24 24",
-          fill: "none",
-          stroke: "currentColor",
-          "stroke-width": "2",
-          "stroke-linecap": "round",
-          "stroke-linejoin": "round"
-        }
-      },
-      [
-        _c("path", {
-          attrs: { d: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" }
-        }),
-        _vm._v(" "),
-        _c("circle", { attrs: { cx: "12", cy: "7", r: "4" } })
-      ]
-    ),
-    _vm._v(" "),
-    _c("span", { staticClass: "ml-1 text-nowrap text-truncate" }, [
-      _vm._v("#" + _vm._s(_vm.notification.data.user_id) + ", "),
-      _c("strong", [_vm._v(_vm._s(_vm.notification.data.user_name))]),
-      _vm._v(", " + _vm._s(_vm.notification.data.messages))
-    ])
-  ])
+  return _c(
+    "a",
+    {
+      staticClass: "dropdown-item",
+      class: !_vm.notification.read_at ? "active" : "",
+      attrs: { href: "#" }
+    },
+    [
+      _c(
+        "svg",
+        {
+          staticClass: "feather feather-user w-4 h-4",
+          attrs: {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: "14px",
+            height: "14px",
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            "stroke-width": "2",
+            "stroke-linecap": "round",
+            "stroke-linejoin": "round"
+          }
+        },
+        [
+          _c("path", {
+            attrs: { d: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" }
+          }),
+          _vm._v(" "),
+          _c("circle", { attrs: { cx: "12", cy: "7", r: "4" } })
+        ]
+      ),
+      _vm._v(" "),
+      _c("span", { staticClass: "ml-1 text-nowrap text-truncate" }, [
+        _vm._v("#" + _vm._s(_vm.notification.data.user_id) + ", "),
+        _c("strong", [_vm._v(_vm._s(_vm.notification.data.user_name))]),
+        _vm._v(", " + _vm._s(_vm.notification.data.messages))
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

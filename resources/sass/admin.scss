@@ -840,4 +840,11 @@ html, body {
         font-size: 24px;
         color: $primary;
     }
+
+    .notification-header {
+        background-color: $primary;
+        padding: 10px 15px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
 }

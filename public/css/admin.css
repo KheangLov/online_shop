@@ -18130,3 +18130,10 @@ body {
   color: #7367F0;
 }
 
+#admin .notification-header {
+  background-color: #7367F0;
+  padding: 10px 15px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+

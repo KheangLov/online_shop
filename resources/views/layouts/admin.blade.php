@@ -133,7 +133,7 @@
                     </ul>
                     <ul class="navbar-nav" id="app">                    
                         @if (Auth::user()->role->name === 'admin')
-                            <notification-component :userid="{{ Auth::user()->id }}" :notifications="{{ Auth::user()->notifications }}"></notification-component>
+                            <notification-component :userid="{{ Auth::user()->id }}" :notifications="{{ Auth::user()->notifications }}" :unreads="{{ Auth::user()->unreadNotifications }}"></notification-component>
                             {{-- @php($user = App\User::find(Auth::user()->id)) --}}
             {{-- @foreach ($user->notifications as $notification)
                 <a class="dropdown-item" href="{{ route('user_detail', ['id' => $notification->data['user_id']]) }}">

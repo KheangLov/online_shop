@@ -294,6 +294,7 @@
     <!-- END QUICKVIEW PRODUCT -->
     <!-- Placed js at the end of the document so the pages load faster -->
     <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=373794453282051&autoLogAppEvents=1"></script>
 
     <!-- jquery latest version -->
     <script src="{{ asset('js/vendor/jquery-1.12.0.min.js') }}"></script>
@@ -309,7 +310,6 @@
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/product.js') }}"></script>
 
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=373794453282051&autoLogAppEvents=1"></script>
     <script>
         const footerYear = document.getElementById('cpyr_year');
         if (footerYear) {

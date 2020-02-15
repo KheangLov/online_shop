@@ -51,8 +51,13 @@
                         <h2>{{ $product->name }}</h2>
                     </div>
                     <ul class="pro__dtl__prize">
-                        {{-- <li class="old__prize">$15.21</li> --}}
-                        <li>${{ $product->price }}</li>
+                        @if (!empty($product->discount))
+                        @php($new_price = $product->price - ($product->price * $product->discount) / 100)
+                            <li class="old__prize">${{ $product->price }}</li>
+                            <li>${{ $new_price }}</li>
+                        @else
+                            <li>${{ $product->price }}</li>
+                        @endif
                     </ul>
                     @if (count($product->productVariants) > 0)
                         @if (isset($product->productVariants[0]->color))
@@ -92,7 +97,7 @@
                         <li><a href="#"><span class="ti-email"></span></a></li>
                     </ul>
                     <div class="pro__social__share">
-                        <div class="fb-like" data-href="{{ route('shop_product_details', ['id' => $product->id]) }}" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
                     </div>
                 </div>
             </div>

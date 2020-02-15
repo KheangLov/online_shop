@@ -30,6 +30,7 @@
         </div>
     </div>
     <div id="admin" class="d-none">
+
         <aside id="sidebar" class="sidebar">
             <a href="{{ route('admin_dashboard') }}" class="sidebar-header mb-3">
                 <img src="{{ asset('images/logo.png') }}" class="img-fluid" alt="logo" id="side-header-img" style="height: 36px; margin-bottom: 20px;">
@@ -134,16 +135,6 @@
                     <ul class="navbar-nav" id="app">                    
                         @if (Auth::user()->role->name === 'admin')
                             <notification-component :userid="{{ Auth::user()->id }}" :notifications="{{ Auth::user()->notifications }}" :unreads="{{ Auth::user()->unreadNotifications }}"></notification-component>
-                            {{-- @php($user = App\User::find(Auth::user()->id)) --}}
-            {{-- @foreach ($user->notifications as $notification)
-                <a class="dropdown-item" href="{{ route('user_detail', ['id' => $notification->data['user_id']]) }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user w-4 h-4">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span class="ml-1 text-nowrap text-truncate">#{{ $notification->data['user_id'] }}, <strong>{{ strtoupper($notification->data['user_name']) }}</strong>, {{ $notification->data['messages'] }}</span>
-                </a>
-            @endforeach --}}
                         @endif
                         <li class="nav-item">
                             <div class="current-user text-right">
@@ -168,13 +159,6 @@
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>
                                     <span class="ml-1">Profile</span>
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell ">
-                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                                    </svg>
-                                    <span class="ml-1">Notification</span>
                                 </a>
                                 <a class="dropdown-item" href="{{ route('home') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">

@@ -21,6 +21,8 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('notification-component', require('./components/NotificationComponent.vue').default);
+// Vue.component('status-component', require('./components/StatusComponent.vue').default);
+// Vue.component('table-component', require('./components/TableComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,3 +33,11 @@ Vue.component('notification-component', require('./components/NotificationCompon
 const app = new Vue({
     el: '#app'
 });
+
+// const userStatus = document.getElementById('user_status');
+// if (userStatus) {
+//     const user_status = new Vue({
+//         el: '#user_status',
+//         components: 
+//     });
+// }

@@ -89,6 +89,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required'],
+            'discount' => ['required'],
             'description' => ['required', 'string', 'max:255']
         ]);
 
@@ -99,16 +100,19 @@ class ProductController extends Controller
         }
 
         $images_str_id = json_decode($request->images);
+
         $images_id = [];
-        foreach ($images_str_id as $isi) {
+        foreach ($images_str_id->image_ids as $isi) {
             array_push($images_id, (int)$isi);
         }
+
         if ($request->category == 0 || $request->subCategory == 0) {
             return redirect()->route('product')->with('error', 'Wrong data!');
         }
         $data = [
             'name' => $request->name,
             'price' => $request->price,
+            'discount' => $request->discount,
             'description' => $request->description,
             'condition' => $request->condition,
             'location' => $request->location,
@@ -215,11 +219,13 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(Request $req, $id)
+    public function update(Request $request, $id)
     {
+        $post = Post::find($id);
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required'],
+            'discount' => ['required'],
             'description' => ['required', 'string', 'max:255']
         ]);
 
@@ -229,40 +235,52 @@ class ProductController extends Controller
                 ->withErrors($validator);
         }
 
-        $images_str_id = json_decode($request->images);
-        $images_id = [];
-        foreach ($images_str_id as $isi) {
-            array_push($images_id, (int)$isi);
-        }
+        // $images_str_id = json_decode($request->images);
+        // $images_id = [];
+        // foreach ($images_str_id->image_ids as $isi) {
+        //     array_push($images_id, (int)$isi);
+        // }
         if ($request->category == 0 || $request->subCategory == 0) {
             return redirect()->route('product')->with('error', 'Wrong data!');
         }
-        $data = [
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-            'condition' => $request->condition,
-            'location' => $request->location,
-            'user_id' => Auth::user()->id,
-            'category_id' => $request->category,
-            'sub_category_id' => $request->subCategory,
-            'status' => $request->status
-        ];
+
+        $post->name = $request->name;
+        $post->price = $request->price;
+        $post->discount = $request->discount;
+        $post->description = $request->description;
+        $post->condition = $request->condition;
+        $post->location = $request->location;
+        $post->user_id = Auth::user()->id;
+        $post->category_id = $request->category;
+        $post->sub_category_id = $request->subCategory;
+        $post->status = $request->status;
+
         if (isset($request->thumbnail)) {
             $imageName = time() . '.' . $request->thumbnail->extension();
             $request->thumbnail->move(public_path('images'), $imageName);
             $img = 'images/' . $imageName;
-            $data['thumbnail'] = $img;
+            $post->thumbnail = $img;
         } else {
-            $data['thumbnail'] = 'images/no-image.png';
+            $post->thumbnail = 'images/no-image.png';
         }
-        $post = Post::create($data);
-        Image::whereIn('id', $images_id)->update(['post_id' => $post->id]);
-        return redirect()->route('product')->with('message', 'Product created!');
+		$post->save();
+		$post->update();
+        // Image::whereIn('id', $images_id)->update(['post_id' => $post->id]);
+        return redirect()->route('product')->with('message', 'Product updated!');
     }
 
     public function delete($id)
     {
+        $product = Post::find($id);
 
+        $deleted = $product->delete();
+        if ($deleted === 0)
+            return redirect()
+                ->route('product')
+                ->with('warning', 'Can not delete product!');
+
+		return redirect()
+			->route('product')
+			->with('message', 'Product deleted');
     }
 }

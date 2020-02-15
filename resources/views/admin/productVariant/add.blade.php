@@ -13,14 +13,20 @@
     <div class="col-md-3">
         <div class="card card-custom bg-color mb-4">
             <div class="card-header">
-                <h2 class="font-weight-bold p-2 w-100 m-0 text-nowrap text-truncate">Products</h2>
+                <h2 class="font-weight-bold p-2 w-100 m-0 text-truncate">Products</h2>
             </div>
         </div>
         @foreach ($products as $product)
             <a href="{{ route('pv_add', ['id' => $product->id]) }}" class="text-decoration-none product-to-at">
                 <div class="card card-custom bg-color-light mb-3">
-                    <div class="card-body">
-                        <h5 class="w-100 m-0 p-0">{{ ucfirst($product->name) }}</h5>
+                    <div class="card-body d-flex">
+                        <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->thumbnail }}" class="img-fluid mr-3" style="width: 40px; height: 40px; border-radius: 25%; border: 2px solid #fff;">
+                        <div class="align-middle text-truncate">
+                            <h5 class="w-100 m-0 p-0" data-toggle="tooltip" data-placement="top" title="{{ ucfirst($product->name) }}">
+                                {{ ucfirst($product->name) }}
+                            </h5>
+                            <span class="text-muted">{{ ucfirst($product->category->name) }}</span>
+                        </div>
                     </div>
                 </div>
             </a>

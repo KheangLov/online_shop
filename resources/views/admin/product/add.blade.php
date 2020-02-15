@@ -59,6 +59,16 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-12">
+                            <label for="discount">{{ __('Discount') }}</label>
+                            <input id="discount" type="number" class="form-control @error('discount') is-invalid @enderror" name="discount" required>
+
+                            @error('discount')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-12">
                             <label for="condition">{{ __('Condition') }}</label>
                             <select id="condition" class="form-control" name="condition" id="exampleFormControlSelect1">
                                 @foreach ($conditions as $condition)

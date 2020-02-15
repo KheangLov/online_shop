@@ -18,7 +18,7 @@
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
                     </button>
-                    <input type="file" name="thumbnail" id="profile_edit" class="d-none" value="{{ asset($product->thumbnail) }}">
+                    <input type="file" name="thumbnail" id="profile_edit" class="d-none" value="{{ $product->thumbnail }}">
                 </div>
             </div>
             <div class="row">
@@ -38,6 +38,16 @@
                             <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ $product->price }}" required>
 
                             @error('price')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="discount">{{ __('Discount') }}</label>
+                            <input id="discount" type="number" class="form-control @error('discount') is-invalid @enderror" name="discount" value="{{ $product->discount }}" required>
+
+                            @error('discount')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -152,7 +162,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-12">
+                        {{-- <div class="form-group col-md-12">
                             <label for="images">{{ __('Images') }}</label>
                             <button type="button" class="d-block btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">
                                 Open gallery
@@ -188,7 +198,7 @@
                                 </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

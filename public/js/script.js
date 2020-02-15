@@ -236,9 +236,11 @@ $(document).ready(function(e) {
     imagePickerMethod();
 
     $("#btn_choose_imgs").click(function() {
-        const images = $("#images-pick")
-            .data("picker")
-            .selected_values();
+        const images = {
+            image_ids: $("#images-pick")
+                .data("picker")
+                .selected_values()
+        };
         $('#images_choosed').val(JSON.stringify(images));
         console.log(
             $("#images-pick")

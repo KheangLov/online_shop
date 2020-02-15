@@ -59928,7 +59928,9 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('notification-component', __webpack_require__(/*! ./components/NotificationComponent.vue */ "./resources/js/components/NotificationComponent.vue")["default"]);
+Vue.component('notification-component', __webpack_require__(/*! ./components/NotificationComponent.vue */ "./resources/js/components/NotificationComponent.vue")["default"]); // Vue.component('status-component', require('./components/StatusComponent.vue').default);
+// Vue.component('table-component', require('./components/TableComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -59937,7 +59939,13 @@ Vue.component('notification-component', __webpack_require__(/*! ./components/Not
 
 var app = new Vue({
   el: '#app'
-});
+}); // const userStatus = document.getElementById('user_status');
+// if (userStatus) {
+//     const user_status = new Vue({
+//         el: '#user_status',
+//         components: 
+//     });
+// }
 
 /***/ }),
 

@@ -62,8 +62,13 @@
                                         </a>
                                     </h2>
                                     <ul class="product__price">
-                                        {{-- <li class="old__price">$16.00</li> --}}
-                                        <li class="new__price" style="padding: 0;">${{ $product->price }}</li>
+                                        @if (!empty($product->discount))
+                                            @php($new_price = $product->price - ($product->price * $product->discount) / 100)
+                                            <li class="old__price">${{ $product->price }}</li>
+                                            <li class="new__price" style="padding: 0;">${{ $new_price }}</li>
+                                        @else
+                                            <li class="new__price" style="padding: 0;">${{ $product->price }}</li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>

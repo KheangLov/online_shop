@@ -43,7 +43,7 @@
                                     <div class="pro__thumb">
                                         <a href="{{ route('shop_product_details', ['id' => $product->id]) }}">
                                             <div class="product_img_bg" style="background-color: #666;">
-                                                <img class="custom_product_thumbnail" src="{{ $product->thumbnail }}" alt="product images">
+                                                <img class="custom_product_thumbnail" src="{{ asset($product->thumbnail) }}" alt="product images">
                                             </div>
                                         </a>
                                     </div>
@@ -63,7 +63,7 @@
                                     </h2>
                                     <ul class="product__price">
                                         @if (!empty($product->discount))
-                                            @php($new_price = $product->price - ($product->price * $product->discount) / 100)
+                                            @php($new_price = round($product->price - ($product->price * $product->discount) / 100))
                                             <li class="old__price">${{ $product->price }}</li>
                                             <li class="new__price" style="padding: 0;">${{ $new_price }}</li>
                                         @else

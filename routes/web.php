@@ -66,6 +66,7 @@ Route::get('/admin/product-variant/delete/{id}', 'ProductVariantController@delet
 
 Route::post('/admin/images/upload', 'ImageController@upload')->name('images_upload');
 Route::post('/admin/images/delete', 'ImageController@delete')->name('images_delete');
+Route::get('/admin/images', 'ImageController@index')->name('images');
 
 Route::get('/mark-as-read', function() {
     Auth::user()->unreadNotifications->markAsRead();

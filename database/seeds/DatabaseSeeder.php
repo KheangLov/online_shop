@@ -32,13 +32,13 @@ class DatabaseSeeder extends Seeder
             'updated_at' => $faker->dateTime($max = 'now', $timezone = null)
         ]);
 
-        // DB::table('categories')->insert([
-        //     ['name' => 'uncategorized', 'image' => 'images/no-image.png']
-        // ]);
+        DB::table('categories')->insert([
+            ['name' => 'uncategorized', 'image' => 'images/no-image.png']
+        ]);
 
-        // DB::table('sub_categories')->insert([
-        //     ['name' => 'uncategorized', 'category_id' => 1]
-        // ]);
+        DB::table('sub_categories')->insert([
+            ['name' => 'uncategorized', 'category_id' => 1]
+        ]);
 
         // $i = 0;
         // while ($i < 30) {

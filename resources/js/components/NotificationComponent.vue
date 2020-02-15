@@ -17,7 +17,7 @@
                 <h4 class="m-0" style="color: #fff;">All notifications</h4>
             </div>
             <div class="dropdown-divider m-0"></div>
-            <div style="height: 290px; overflow-y: auto;">
+            <div style="max-height: 290px; overflow-y: auto;">
                 <notification-item-component v-for="notification in newNotifications" :notification="notification" :key="notification.id"></notification-item-component>
             </div>
         </div>

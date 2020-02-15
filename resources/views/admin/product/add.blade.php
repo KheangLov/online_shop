@@ -195,11 +195,11 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <input type="file" name="images[]" id="upload_images" class="d-none" multiple>
+                                        {{-- <input type="file" name="images[]" id="upload_images" class="d-none" multiple>
                                         <button type="button" id="btn_upload_images" class="btn btn-primary mb-3 font-weight-bold">
                                             <i class="fas fa-camera mb-2"></i>
                                             Upload Image
-                                        </button>
+                                        </button> --}}
                                         @if (!empty($images))
                                             <select id="images-pick" class="image-picker show-html" multiple="multiple" data-limit="4">
                                                 @foreach ($images as $img)

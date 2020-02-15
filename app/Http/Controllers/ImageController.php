@@ -14,6 +14,14 @@ class ImageController extends Controller
         $this->middleware(['auth', 'verified']);
     }
 
+    public function index()
+    {
+        $images = Image::where('user_id', Auth::user()->id)
+            ->where('post_id', '!=', null)
+            ->get();
+        return view('admin.photo.index', ['images' => $images]);
+    }
+
     public function upload(Request $request)
     {
         request()->validate([

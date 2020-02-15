@@ -5,6 +5,10 @@
     <i class="fas fa-plus mr-1"></i>
     Add Product
 </a>
+<a href="{{ route('images') }}" class="btn btn-lg btn-secondary mb-5">
+    <i class="fas fa-plus mr-1"></i>
+    Upload photo
+</a>
 <div class="card card-custom bg-color">
     <div class="card-header text-nowrap">
         <div class="row">

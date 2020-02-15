@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Image;
 use App\Post;
+use App\ProductVariant;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -36,6 +37,9 @@ class HomeController extends Controller
         $categories = Category::with(['subCategories', 'posts'])->get();
         $product = Post::with('productVariants')->find($id);
         $images = Image::where('post_id', $id)->get();
-        return view('details', ['categories' => $categories, 'product' => $product, 'images' => $images]);
+        $colors = ProductVariant::distinct()->get(['color']);
+        $relatedProducts = Post::where('id', '!=', $id)->offset(0)->limit(4)->get();
+
+        return view('details', ['categories' => $categories, 'product' => $product, 'images' => $images, 'colors' => $colors, 'relatedProducts' => $relatedProducts]);
     }
 }

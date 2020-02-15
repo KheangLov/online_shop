@@ -47660,7 +47660,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticStyle: { height: "290px", "overflow-y": "auto" } },
+            { staticStyle: { "max-height": "290px", "overflow-y": "auto" } },
             _vm._l(_vm.newNotifications, function(notification) {
               return _c("notification-item-component", {
                 key: notification.id,

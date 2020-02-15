@@ -22,6 +22,8 @@ $(document).ready(function(e) {
                 $('#shop_products').html('');
                 if (products.length > 0) {
                     products.forEach(product => {
+                        let newPrice = 0;
+                        if (product.discount) newPrice = Math.round(product.price - (product.price * product.discount) / 100);
                         $('#shop_products').append(`
                             <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
                                 <div class="product foo">
@@ -44,7 +46,7 @@ $(document).ready(function(e) {
                                             <a href="" style="text-transform: capitalize;">${product.name}</a>
                                         </h2>
                                         <ul class="product__price">
-                                            <li class="new__price" style="padding: 0;">$${product.price}</li>
+                                            ${product.discount ? `<li class="old__price">$${product.price}</li><li class="new__price" style="padding: 0;">$${newPrice}</li>` : `<li class="new__price" style="padding: 0;">$${product.price}</li>`}
                                         </ul>
                                     </div>
                                 </div>

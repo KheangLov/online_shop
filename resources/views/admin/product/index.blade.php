@@ -32,6 +32,7 @@
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Discount</th>
                         <th scope="col">Location</th>
                         <th scope="col">Category</th>
                         <th scope="col">Sub-Category</th>
@@ -49,6 +50,7 @@
                             </td>
                             <td>{{ $post->name }}</td>
                             <td>$ {{ $post->price }}</td>
+                            <td>% {{ $post->discount }}</td>
                             <td>{{ $post->location }}</td>
                             <td>{{ $post->category->name }}</td>
                             <td>{{ $post->subCategory->name }}</td>

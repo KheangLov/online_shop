@@ -47,16 +47,41 @@ class ProductVariantController extends Controller
 
     public function edit($id)
     {
-
+        $productVar = ProductVariant::find($id);
+        return view('admin.productVariant.edit', ['productVar' => $productVar]);
     }
 
     public function update(Request $request, $id)
     {
+        $productVar = ProductVariant::find($id);
 
+        $productVar->color = $request->color;
+        $productVar->size = $request->size;
+        $productVar->discount = $request->discount;
+        $productVar->quantity = $request->quantity;
+        $productVar->post_id = $request->product_id;
+
+        $productVar->save();
+        $productVar->update();
+
+        $products = Post::with('productVariants')
+            ->where('user_id', Auth::user()->id)
+            ->get();
+        return redirect()->route('product_variant')->with(['success' => 'Product variant created!', 'products' => $products]);
     }
 
     public function delete($id)
     {
-        
+        $productVar = ProductVariant::find($id);
+        $deleted = $productVar->delete();
+
+        if ($deleted === 0)
+            return redirect()
+                ->route('product_variant')
+                ->with('warning', 'Can not delete product variant!');
+
+		return redirect()
+			->route('product_variant')
+			->with('success', 'Product variant deleted');
     }
 }

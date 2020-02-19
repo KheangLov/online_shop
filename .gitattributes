@@ -2,6 +2,6 @@
 *.css linguist-vendored
 *.scss linguist-vendored
 *.js linguist-vendored
-*.css linguist-detectable=false
+*.html linguist-detectable=false
 *.php linguist-detectable=true
 CHANGELOG.md export-ignore

@@ -17,7 +17,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="p-2">
-                    <input type="text" class="form-control" placeholder="Search...">
+                    {{-- <input type="text" class="form-control" placeholder="Search..."> --}}
                 </div>
             </div>
         </div>

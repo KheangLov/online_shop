@@ -26,7 +26,7 @@
                             </div>
                         @enderror
 
-                        <input type="password" name="new_password" placeholder="New Password">
+                        <input type="password" name="password" placeholder="New Password">
                         <input type="password" name="password_confirmation" placeholder="Confirm Password">
                         <button type="submit" class="btn btn-primary btn-block btn-login-custom">
                             {{ __('Change') }}

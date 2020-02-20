@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="p-2">
-                    <input type="text" class="form-control" id="user_search" placeholder="Search...">
+                    {{-- <input type="text" class="form-control" id="user_search" placeholder="Search..."> --}}
                 </div>
             </div>
         </div>

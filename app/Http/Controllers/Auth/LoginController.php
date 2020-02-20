@@ -75,24 +75,26 @@ class LoginController extends Controller
     protected function logout()
     {
         $user = AuthUser::user();
-        $user->status = 'inactive';
-        $user->save();
-        $user->update();
+        if (!empty($user)) {
+            $user->status = 'inactive';
+            $user->save();
+            $user->update();
+
+            $admin = User::where('role_id', 1)->get();
+            $details = [
+                'greeting' => 'Hi Artisan',
+                'body' => 'have been logged out!',
+                'thanks' => 'Thank you for using ItSolutionStuff.com tuto!',
+                'actionText' => 'View My Site',
+                'actionURL' => url('/'),
+                'user_id' => $user->id,
+                'user_name' => $user->name
+            ];
+    
+            Notification::send($admin, new UserNotification($details));
+        }
+
         AuthUser::logout();
-
-        $admin = User::where('role_id', 1)->get();
-        $details = [
-            'greeting' => 'Hi Artisan',
-            'body' => 'have been logged out!',
-            'thanks' => 'Thank you for using ItSolutionStuff.com tuto!',
-            'actionText' => 'View My Site',
-            'actionURL' => url('/'),
-            'user_id' => $user->id,
-            'user_name' => $user->name
-        ];
-
-        Notification::send($admin, new UserNotification($details));
-
 		return redirect()->route('login');
     }
 }

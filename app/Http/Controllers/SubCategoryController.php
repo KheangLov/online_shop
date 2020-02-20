@@ -29,8 +29,8 @@ class SubCategoryController extends Controller
         $subCategories = SubCategory::with(['user', 'category'])->paginate(10);
         $categories = Category::all();
         if ($id !== 0) {
-            $subCategory = SubCategory::find($id)->where('user_id', Auth::user()->id);
-            return view('admin.subCategory.index', ['subCategory' => $subCategory, 'subCategories' => $subCategories, 'categories' => $categories, 'edit' => true]);
+            $subCategory = SubCategory::where('id', $id)->where('user_id', Auth::user()->id)->get();
+            return view('admin.subCategory.index', ['subCategory' => $subCategory[0], 'subCategories' => $subCategories, 'categories' => $categories, 'edit' => true]);
         }
         return view('admin.subCategory.index', ['subCategories' => $subCategories, 'categories' => $categories]);
     }

@@ -28,8 +28,8 @@ class CategoryController extends Controller
         //     ->get();
         $categories = Category::with('user')->paginate(10);
         if ($id !== 0) {
-            $category = Category::find($id)->where('user_id', Auth::user()->id);
-            return view('admin.category.index', ['category' => $category, 'categories' => $categories, 'edit' => true]);
+            $category = Category::where('id', (int)$id)->where('user_id', Auth::user()->id)->get();
+            return view('admin.category.index', ['category' => $category[0], 'categories' => $categories, 'edit' => true]);
         }
         return view('admin.category.index', ['categories' => $categories]);
     }
